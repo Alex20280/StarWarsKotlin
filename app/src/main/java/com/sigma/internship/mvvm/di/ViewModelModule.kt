@@ -8,6 +8,6 @@ import org.koin.dsl.module
 fun viewModelModule() = module {
 
     viewModel<MainViewModel> {
-        MainViewModelImpl(dao = get())
+        MainViewModelImpl(repository = get())
     }
 }

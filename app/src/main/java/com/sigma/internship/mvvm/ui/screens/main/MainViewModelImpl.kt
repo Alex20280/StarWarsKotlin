@@ -1,24 +1,24 @@
 package com.sigma.internship.mvvm.ui.screens.main
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.sigma.internship.mvvm.data.db.dao.UsersDao
 import com.sigma.internship.mvvm.data.db.entities.UserEntity
 import com.sigma.internship.mvvm.data.entities.UserLocalModel
+import com.sigma.internship.mvvm.data.repository.movie.MovieRepository
+import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
 
-class MainViewModelImpl(private val dao: UsersDao): MainViewModel() {
+class MainViewModelImpl(private val repository: MovieRepository): MainViewModel() {
 
-    override val getUserResponse = MutableLiveData<List<UserLocalModel>>()
+    override val getPopularMovies = MutableLiveData<MutableList<MovieLocalModel>>()
 
-    override fun adduser(firstName: String, lastName: String) {
+
+    override fun getPopularMovies() {
         launchWithProgress(isLoading){
-            dao.saveUser(UserEntity(firstName = firstName, lastName = lastName))
+            val response = repository.getPopularMovies()
+            getPopularMovies.postValue(response)
         }
+
     }
 
-    override fun getUsers() {
-       launchWithProgress(isLoading){
-           val users = dao.getUsers().map { it.convertToLocal() }
-           getUserResponse.postValue(users)
-       }
-    }
 }
