@@ -1,6 +1,6 @@
 package com.sigma.internship.mvvm.di
 
-import com.sigma.internship.mvvm.data.network.MovieAPI
+import com.sigma.internship.mvvm.data.network.MovieApi
 import com.sigma.internship.mvvm.data.network.RetrofitProvider
 import com.sigma.internship.mvvm.data.repository.movie.MovieRepository
 import com.sigma.internship.mvvm.data.repository.movie.MovieRepositoryImpl
@@ -13,9 +13,9 @@ fun repositoryModule() = module {
         RetrofitProvider().retrofit
     }
 
-    single<MovieAPI> {
+    single<MovieApi> {
         val retrofit = get<Retrofit>()
-        retrofit.create(MovieAPI::class.java)
+        retrofit.create(MovieApi::class.java)
     }
 
     single<MovieRepository> {

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="movieResponse"
+            type="com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel" />
+
+    </data>
+
+<androidx.cardview.widget.CardView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/black"
+    android:layout_marginEnd="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="0dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/posterIv"
+            android:layout_width="145dp"
+            android:layout_height="185dp"
+            android:background="@drawable/johnwick"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/movieTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/posterIv"
+            android:layout_marginTop="13dp"
+            android:scaleType="centerCrop"
+            android:text="@{movieResponse.title}"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/genreTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/movieTitleTv"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="5dp"
+            android:scaleType="centerCrop"
+            android:text="@{movieResponse.genreIds.get(1)}"
+            android:textColor="#878D95"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/dotIv"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ellipse"
+            android:layout_toEndOf="@+id/genreTv"
+            android:layout_below="@+id/movieTitleTv"
+
+            />
+
+        <TextView
+            android:id="@+id/movieDurationTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/movieTitleTv"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/dotIv"
+            android:textColor="#878D95"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
+
+</layout>

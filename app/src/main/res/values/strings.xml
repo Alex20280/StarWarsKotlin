@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">MVVM</string>
+    <string name="app_name">Star Wars</string>
+    <string name="john_wick">JOHN WICK</string>
+    <string name="keanu_reeves">Keanu Reeves</string>
+    <string name="john_wick_3">John Wick 3</string>
+    <string name="crime">Crime</string>
+    <string name="_2hr_10m_r">2hr 10m | R</string>
+    <string name="john_wick_3_parabellum">John Wick 3: Parabellum</string>
+    <string name="action_crime_thriller">Action, Crime, Thriller</string>
+    <string name="sinopsis">Sinopsis</string>
+    <string name="cast_crew"><![CDATA[Cast & Crew]]></string>
+    <string name="view_all">View All</string>
 </resources>
