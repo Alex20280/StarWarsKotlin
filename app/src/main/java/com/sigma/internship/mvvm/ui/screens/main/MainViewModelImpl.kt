@@ -1,6 +1,5 @@
 package com.sigma.internship.mvvm.ui.screens.main
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.sigma.internship.mvvm.data.repository.movie.MovieRepository
 import com.sigma.internship.mvvm.ui.models.cast.CastLocal
@@ -16,8 +15,8 @@ class MainViewModelImpl(private val repository: MovieRepository ): MainViewModel
 
     override fun getPopularMovies() {
         launchWithProgress(isLoading) {
-            val populerMovieResponse = repository.getPopularMovies()
-            getPopularMovies.postValue(populerMovieResponse)
+            val popularMovieResponse = repository.getPopularMovies()
+            getPopularMovies.postValue(popularMovieResponse)
         }
 
     }

@@ -14,11 +14,11 @@ class MovieRepositoryImpl(val api: MovieApi): MovieRepository {
     }
 
     override suspend fun geMovieDuration(): MutableList<MovieDurationLocalModel> {
-        return api.getMovieDuration(key).runtime.map {}.toMutableList()
+        return api.getMovieDuration(key).runtime.. {it.convertToLocalModel()}.toMutableList()
     }
 
     override suspend fun getCrewAndCast(): MutableList<CastAndCrewLocalModel> {
-        return api.getCrewAndCast(key).character.get()
+        return api.getCrewAndCast(key).character.
         return api.getCrewAndCast(key).map { it.convertToLocalModel()}.toMutableList()
     }
 

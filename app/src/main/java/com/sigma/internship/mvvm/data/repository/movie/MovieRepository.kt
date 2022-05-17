@@ -1,8 +1,10 @@
 package com.sigma.internship.mvvm.data.repository.movie
 
-import com.sigma.internship.mvvm.ui.models.cast.CastAndCrewLocalModel
+import androidx.lifecycle.LiveData
+import com.sigma.internship.mvvm.data.network.models.response.cast.CastAndCrew
 import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
 import com.sigma.internship.mvvm.ui.models.moviewdetails.MovieDurationLocalModel
+
 
 interface MovieRepository {
 
@@ -10,5 +12,6 @@ interface MovieRepository {
 
     suspend fun geMovieDuration(): MutableList<MovieDurationLocalModel>
 
-    suspend fun getCrewAndCast(): MutableList<CastAndCrewLocalModel>
+    suspend fun getCrewAndCast(): MutableList<CastAndCrew>
+
 }

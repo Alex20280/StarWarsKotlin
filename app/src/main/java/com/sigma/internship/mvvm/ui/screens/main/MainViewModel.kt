@@ -13,4 +13,12 @@ abstract class MainViewModel: BaseViewModel() {
     abstract val getMovieDurationLocalModel: LiveData<MutableList<MovieDurationLocalModel>>
 
     abstract val getCastLocal: LiveData<MutableList<CastLocal>>
+
+    public abstract fun getPopularMovies()
+
+    public abstract fun getMovieDuration()
+
+    public abstract fun getCrewAndCast()
+
+
 }
