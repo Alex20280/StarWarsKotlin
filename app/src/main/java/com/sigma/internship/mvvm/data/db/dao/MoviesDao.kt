@@ -2,52 +2,49 @@ package com.sigma.internship.mvvm.data.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.sigma.internship.mvvm.data.network.models.response.cast.CastAndCrew
-import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponseModel
-import com.sigma.internship.mvvm.data.network.models.response.moviedetails.MovieDuration
+import com.sigma.internship.mvvm.data.db.entities.MovieResponse
+import com.sigma.internship.mvvm.data.db.entities.Cast
+import com.sigma.internship.mvvm.data.db.entities.MovieDuration
 
 
 @Dao
 interface MoviesDao {
 
-    @Query("select * from movie")
-    fun getMovieDetails(): LiveData<List<MovieResponseModel>>
+    @Insert  (onConflict = OnConflictStrategy.REPLACE)
+    fun insertMovieDetails(details: MovieResponse)
 
-    @Insert
-    fun addMovieDetails(details: MovieResponseModel)
+    @Query("select * FROM movie")
+    fun getMovieDetails(): LiveData<List<MovieResponse>>
 
-    @Update
-    fun updateDetails(details: MovieResponseModel)
+    @Query("SELECT * FROM movie WHERE movie_id ==:movie_id")
+    fun getExactMovieDetails(movie_id: Int)
 
-    @Delete
-    fun deleteDetails(details: MovieResponseModel)
+    @Update (onConflict = OnConflictStrategy.REPLACE)
+    fun updateDetails(details: MovieResponse)
 
 
+
+    @Insert  (onConflict = OnConflictStrategy.REPLACE)
+    fun insertMovieDuration(duration: MovieDuration)
 
     @Query("SELECT * FROM movie_duration")
     fun getMovieDuration(): LiveData<List<MovieDuration>>
 
-    @Insert
-    fun addMovieDuration(duration: MovieDuration)
+    @Query("SELECT * FROM movie_duration WHERE movie_id ==:movie_id")
+    fun getExactMovieDuration(movie_id: Int)
 
-    @Update
+    @Update  (onConflict = OnConflictStrategy.REPLACE)
     fun updateDuration(duration: MovieDuration)
 
-    @Delete
-    fun deleteDuration(duration: MovieDuration)
 
+    @Insert  (onConflict = OnConflictStrategy.REPLACE)
+    fun insertCharacterAndActor(cast: Cast)
 
+    @Query("SELECT * FROM `cast` WHERE movie_id ==:movie_id")
+    fun getExactMovieCharacterAndActor(movie_id: Int)
 
-    @Query("SELECT * FROM cast_and_crew")
-    fun getCharacterAndActor(): LiveData<List<CastAndCrew>>
+    @Update  (onConflict = OnConflictStrategy.REPLACE)
+    fun updateCharacterAndActor(cast: Cast)
 
-    @Insert
-    fun addCharacterAndActor(cast: CastAndCrew)
-
-    @Update
-    fun updateCharacterAndActor(cast: CastAndCrew)
-
-    @Delete
-    fun deleteCharacterAndActor(cast: CastAndCrew)
 
 }

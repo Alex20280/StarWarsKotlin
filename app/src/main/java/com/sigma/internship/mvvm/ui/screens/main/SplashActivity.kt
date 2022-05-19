@@ -6,14 +6,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.sigma.internship.mvvm.databinding.ActivityMainBinding
-import com.sigma.internship.mvvm.ui.base.BaseActivity
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.sigma.internship.mvvm.databinding.ActivitySplashBinding
 
 
 class SplashActivity : AppCompatActivity() {
 
-    private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) } //binding
+    private val binding: ActivitySplashBinding by lazy { ActivitySplashBinding.inflate(layoutInflater) } //binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

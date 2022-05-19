@@ -1,6 +1,6 @@
 package com.sigma.internship.mvvm.data.network.models.response.cast
 
-data class CastAndCrewModel(
+data class CastModel(
     val id : Int,
-    val cast :ArrayList<CastAndCrew>
+    val cast :ArrayList<Cast>
 )

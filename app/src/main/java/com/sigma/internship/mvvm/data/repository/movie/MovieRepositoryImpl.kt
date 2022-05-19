@@ -1,7 +1,8 @@
 package com.sigma.internship.mvvm.data.repository.movie
 
 import com.sigma.internship.mvvm.data.network.MovieApi
-import com.sigma.internship.mvvm.ui.models.cast.CastAndCrewLocalModel
+import com.sigma.internship.mvvm.ui.models.cast.CastLocal
+import com.sigma.internship.mvvm.ui.models.cast.CastLocalModel
 import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
 import com.sigma.internship.mvvm.ui.models.moviewdetails.MovieDurationLocalModel
 
@@ -14,11 +15,10 @@ class MovieRepositoryImpl(val api: MovieApi): MovieRepository {
     }
 
     override suspend fun geMovieDuration(): MutableList<MovieDurationLocalModel> {
-        return api.getMovieDuration(key).runtime.. {it.convertToLocalModel()}.toMutableList()
+        return api.getMovieDuration(key).runtime{ it.convertToLocalModel()}.toMutableList()
     }
 
-    override suspend fun getCrewAndCast(): MutableList<CastAndCrewLocalModel> {
-        return api.getCrewAndCast(key).character.
+    override suspend fun getCast(): MutableList<CastLocal> {
         return api.getCrewAndCast(key).map { it.convertToLocalModel()}.toMutableList()
     }
 

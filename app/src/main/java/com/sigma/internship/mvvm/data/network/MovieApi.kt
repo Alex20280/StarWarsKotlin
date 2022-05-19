@@ -1,6 +1,6 @@
 package com.sigma.internship.mvvm.data.network
 
-import com.sigma.internship.mvvm.data.network.models.response.cast.CastAndCrew
+import com.sigma.internship.mvvm.data.network.models.response.cast.Cast
 import com.sigma.internship.mvvm.data.network.models.response.moviedetails.MovieDuration
 import com.sigma.internship.mvvm.data.network.models.response.popular.PopularResponseModel
 import retrofit2.http.GET
@@ -15,6 +15,6 @@ interface MovieApi {
     suspend fun getMovieDuration(@Query("api_key") apiKey: String?): MovieDuration
 
     @GET("/movie/{movie_id}/credits")
-    suspend fun getCrewAndCast(@Query("api_key") apiKey: String?): CastAndCrew
+    suspend fun getCrewAndCast(@Query("api_key") apiKey: String?): Cast
 
 }

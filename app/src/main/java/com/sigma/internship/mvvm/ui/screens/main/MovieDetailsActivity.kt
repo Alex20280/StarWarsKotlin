@@ -7,10 +7,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.util.Util
 import com.sigma.internship.mvvm.R
 import com.sigma.internship.mvvm.databinding.ActivityMovieDetailsBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailsActivity : AppCompatActivity() {
 
@@ -52,7 +50,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         binding.sinopsinTextTv.setText(overView)
 
         binding.viewAllTv.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this, CastAndCrewActivity::class.java)
+            val intent = Intent(this, CastActivity::class.java)
             startActivity(intent)
         })
     }

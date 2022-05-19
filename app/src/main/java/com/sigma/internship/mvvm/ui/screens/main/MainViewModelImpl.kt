@@ -6,7 +6,7 @@ import com.sigma.internship.mvvm.ui.models.cast.CastLocal
 import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
 import com.sigma.internship.mvvm.ui.models.moviewdetails.MovieDurationLocalModel
 
-class MainViewModelImpl(private val repository: MovieRepository ): MainViewModel() {
+class MainViewModelImpl(private val repository: MovieRepository): MainViewModel() {
 
     override val getPopularMovies = MutableLiveData<MutableList<MovieLocalModel>>()
     override val getMovieDurationLocalModel = MutableLiveData<MutableList<MovieDurationLocalModel>>()
@@ -30,7 +30,7 @@ class MainViewModelImpl(private val repository: MovieRepository ): MainViewModel
 
     override fun getCrewAndCast() {
         launchWithProgress(isLoading) {
-            val crewAndCastresponse = repository.getCrewAndCast()
+            val crewAndCastresponse = repository.getCast()
             getCastLocal.postValue(crewAndCastresponse)
 
         }

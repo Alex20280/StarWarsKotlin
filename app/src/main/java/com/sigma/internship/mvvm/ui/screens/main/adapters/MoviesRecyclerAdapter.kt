@@ -11,17 +11,19 @@ import com.bumptech.glide.request.RequestOptions
 import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponseModel
 import com.sigma.internship.mvvm.data.network.models.response.popular.PopularResponseModel
 import com.sigma.internship.mvvm.databinding.StarMovieRecycleItemBinding
+import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
+import com.sigma.internship.mvvm.ui.models.moviewdetails.MovieDurationLocalModel
 import com.sigma.internship.mvvm.ui.screens.main.MovieDetailsActivity
+import com.sigma.internship.mvvm.ui.screens.main.Utils
 
 
 class MoviesRecyclerAdapter constructor(context: Context, list: ArrayList<PopularResponseModel>) :
     RecyclerView.Adapter<MoviesRecyclerAdapter.RecyclerViewHolder>() {
 
     private lateinit var context: Context
-    private lateinit var movieList: ArrayList<MovieResponseModel>
-    private lateinit var poster: String
-    private lateinit var genreList: ArrayList<Int>
-    private lateinit var overviewString: String
+    private lateinit var movieDetails: ArrayList<MovieLocalModel>
+    private lateinit var movieListDuration: ArrayList<MovieDurationLocalModel>
+    private var poster: String =""
 
     private val binding: StarMovieRecycleItemBinding by lazy {
         StarMovieRecycleItemBinding.inflate(
@@ -31,26 +33,25 @@ class MoviesRecyclerAdapter constructor(context: Context, list: ArrayList<Popula
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-
-        val binding =
-            StarMovieRecycleItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = StarMovieRecycleItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RecyclerViewHolder(binding.root)
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
-        val recyclerViewItem: MovieResponseModel = movieList.get(position)
+        val recyclerViewItem: MovieLocalModel = movieDetails.get(position)
+        val recyclerViewDuration: MovieDurationLocalModel = movieListDuration.get(position)
 
-        poster = "https://image.tmdb.org/t/p/w500" + recyclerViewItem.poster_path
+        poster = "https://image.tmdb.org/t/p/w500" + recyclerViewItem.posterPath
         Glide.with(context).load(poster).apply(RequestOptions.centerCropTransform())
             .into(binding.posterIv)
 
         binding.movieTitleTv.text = recyclerViewItem.title
 
-        binding.genreTv.text = recyclerViewItem.genre_ids.toString()
+        //binding.genreTv.text = recyclerViewItem.genreIds.toString()
         //genreList = recyclerViewItem.genre_ids
-        //binding.genreTv.text = Utils.getGenre(genreList, Utils.CONSTANT_MAP).toString().replace("[", "").replace("]", "")
+        binding.genreTv.text = Utils.getGenre(recyclerViewItem.genreIds, Utils.CONSTANT_MAP).toString().replace("[", "").replace("]", "")
 
-        overviewString = recyclerViewItem.overview
+        binding.movieDurationTv.text = recyclerViewDuration.runtime.toString()
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, MovieDetailsActivity::class.java)
@@ -60,7 +61,7 @@ class MoviesRecyclerAdapter constructor(context: Context, list: ArrayList<Popula
 
     }
 
-    override fun getItemCount(): Int = movieList.size
+    override fun getItemCount(): Int = movieDetails.size
 
     inner class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
