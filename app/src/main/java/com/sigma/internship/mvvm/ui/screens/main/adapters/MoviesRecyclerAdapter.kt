@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponseModel
 import com.sigma.internship.mvvm.data.network.models.response.popular.PopularResponseModel
+import com.sigma.internship.mvvm.databinding.ActivityStarMovieBinding
 import com.sigma.internship.mvvm.databinding.StarMovieRecycleItemBinding
 import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
 import com.sigma.internship.mvvm.ui.models.moviewdetails.MovieDurationLocalModel
@@ -17,24 +18,27 @@ import com.sigma.internship.mvvm.ui.screens.main.MovieDetailsActivity
 import com.sigma.internship.mvvm.ui.screens.main.Utils
 
 
-class MoviesRecyclerAdapter constructor(context: Context, list: ArrayList<PopularResponseModel>) :
-    RecyclerView.Adapter<MoviesRecyclerAdapter.RecyclerViewHolder>() {
+class MoviesRecyclerAdapter : RecyclerView.Adapter<MoviesRecyclerAdapter.RecyclerViewHolder>() {
 
     private lateinit var context: Context
     private lateinit var movieDetails: ArrayList<MovieLocalModel>
     private lateinit var movieListDuration: ArrayList<MovieDurationLocalModel>
-    private var poster: String =""
+    private var poster: String = ""
 
-    private val binding: StarMovieRecycleItemBinding by lazy {
-        StarMovieRecycleItemBinding.inflate(
-            LayoutInflater.from(context)
-        )
-    } //binding
 
+    class RecyclerViewHolder(val binding: StarMovieRecycleItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val binding = StarMovieRecycleItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return RecyclerViewHolder(binding.root)
+        return RecyclerViewHolder(
+            StarMovieRecycleItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        );
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
@@ -43,15 +47,17 @@ class MoviesRecyclerAdapter constructor(context: Context, list: ArrayList<Popula
 
         poster = "https://image.tmdb.org/t/p/w500" + recyclerViewItem.posterPath
         Glide.with(context).load(poster).apply(RequestOptions.centerCropTransform())
-            .into(binding.posterIv)
+            .into(holder.binding.posterIv)
 
-        binding.movieTitleTv.text = recyclerViewItem.title
+        holder.binding.movieTitleTv.text = recyclerViewItem.title
 
         //binding.genreTv.text = recyclerViewItem.genreIds.toString()
         //genreList = recyclerViewItem.genre_ids
-        binding.genreTv.text = Utils.getGenre(recyclerViewItem.genreIds, Utils.CONSTANT_MAP).toString().replace("[", "").replace("]", "")
+        holder.binding.genreTv.text =
+            Utils.getGenre(recyclerViewItem.genreIds, Utils.CONSTANT_MAP).toString()
+                .replace("[", "").replace("]", "")
 
-        binding.movieDurationTv.text = recyclerViewDuration.runtime.toString()
+        holder.binding.movieDurationTv.text = recyclerViewDuration.runtime.toString()
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, MovieDetailsActivity::class.java)
@@ -63,7 +69,4 @@ class MoviesRecyclerAdapter constructor(context: Context, list: ArrayList<Popula
 
     override fun getItemCount(): Int = movieDetails.size
 
-    inner class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-    }
 }
