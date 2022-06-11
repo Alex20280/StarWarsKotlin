@@ -11,6 +11,22 @@ fun dataModule() = module {
     }
 
     single {
-        get<MoviesDatabase>().usersDao()
+        get<MoviesDatabase>().getMovieDetailsDao()
+    }
+
+    single {
+        get<MoviesDatabase>().getMovieDetailsWithId()
+    }
+
+    single {
+        get<MoviesDatabase>().getMovieAndCastWithId()
     }
 }
+
+
+
+/*
+    single {
+        get<MoviesDatabase>().usersDao()
+    }
+*/

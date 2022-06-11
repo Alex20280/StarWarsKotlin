@@ -1,19 +1,38 @@
 package com.sigma.internship.mvvm.data.db
 
+import android.content.Context
 import androidx.room.Database
+import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.sigma.internship.mvvm.data.db.dao.MoviesDao
-import com.sigma.internship.mvvm.data.network.models.response.cast.Cast
-import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponseModel
-import com.sigma.internship.mvvm.data.network.models.response.moviedetails.MovieDuration
+import com.sigma.internship.mvvm.data.db.entities.MovieResponse
+import com.sigma.internship.mvvm.data.db.relations.MovieWithCast
 
-@Database(entities = [MovieResponseModel::class, MovieDuration::class, Cast::class], version = 1)
+//@Database(entities = [MovieResponseModel::class, MovieDuration::class, Cast::class], version = 1)
+
+@Database(entities = [MovieResponse::class, MovieWithCast::class], version = 1)
 abstract class MoviesDatabase : RoomDatabase() {
 
-    abstract fun getMovieDetailsDao(): MoviesDao
+    abstract fun getMovieDetailsWithId(): MoviesDao
 
-    abstract fun getMovieDurationDao(): MoviesDao
+    abstract fun getMovieAndCastWithId(): MoviesDao
 
-    abstract fun getCastAndCrewDao(): MoviesDao
+    companion object {
+        @Volatile
+        private var INSTANCE: MoviesDatabase? = null
+        fun getInstance(context: Context): MoviesDatabase {
+            synchronized(this) {
+                var instance = INSTANCE
+                if (instance == null) {
+                    instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        MoviesDatabase::class.java,
+                        "subscriber_data_database"
+                    ).build()
+                }
+                return instance
+            }
+        }
 
+    }
 }

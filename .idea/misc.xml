@@ -3,14 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/User/AndroidStudioProjects/MVVM/app/src/main/res/layout/activity_cast.xml" value="0.26036767849508335" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MVVM/app/src/main/res/layout/activity_cast_and_crew.xml" value="0.315625" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MVVM/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MVVM/app/src/main/res/layout/activity_movie_details.xml" value="0.5" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/MVVM/app/src/main/res/layout/activity_splash.xml" value="0.26036767849508335" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MVVM/app/src/main/res/layout/activity_splash_screen.xml" value="0.31076923076923074" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MVVM/app/src/main/res/layout/activity_star_movie.xml" value="0.315625" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MVVM/app/src/main/res/layout/cast_and_crew_recycle_item.xml" value="0.315625" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/MVVM/app/src/main/res/layout/cast_recycle_item.xml" value="0.26036767849508335" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MVVM/app/src/main/res/layout/custom_loading_dialog.xml" value="0.315625" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/MVVM/app/src/main/res/layout/star_movie_recycle_item.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/MVVM/app/src/main/res/layout/star_movie_recycle_item.xml" value="0.6430446194225722" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MVVM/app/src/main/res/menu/search_item.xml" value="0.25908507909362977" />
       </map>
     </option>

@@ -5,5 +5,6 @@ data class MovieLocalModel(
     val posterPath: String,
     val overview: String,
     val title: String,
-    val genreIds: ArrayList<Int>
+    val genreIds: ArrayList<Int>,
+    val runtime: Int
     )

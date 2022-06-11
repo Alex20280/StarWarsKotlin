@@ -2,12 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-        <variable
-            name="movieResponse"
-            type="com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel" />
-
-    </data>
 
 <androidx.cardview.widget.CardView
     android:layout_width="wrap_content"
@@ -36,7 +30,7 @@
             android:layout_below="@+id/posterIv"
             android:layout_marginTop="13dp"
             android:scaleType="centerCrop"
-            android:text="@{movieResponse.title}"
+            android:text="John Wick 3"
             android:textColor="@color/white"
             android:textSize="15sp" />
 
@@ -48,7 +42,7 @@
             android:layout_marginTop="0dp"
             android:layout_marginEnd="5dp"
             android:scaleType="centerCrop"
-            android:text="@{movieResponse.genreIds.get(1)}"
+            android:text="Crime"
             android:textColor="#878D95"
             android:textSize="12sp" />
 
@@ -71,6 +65,7 @@
             android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/dotIv"
             android:textColor="#878D95"
+            android:text="2hr 10m"
             android:textSize="12sp" />
 
     </RelativeLayout>

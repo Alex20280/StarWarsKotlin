@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.sigma.internship.mvvm"
-        minSdk 28
+        minSdk 26
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -74,5 +74,7 @@ dependencies {
     api "com.squareup.retrofit2:converter-gson:$converter_gson"
     api "com.squareup.okhttp3:logging-interceptor:$logging_interceptor"
 
+    def paging_version = "3.1.1"
+    implementation "androidx.paging:paging-runtime:$paging_version"
 
 }

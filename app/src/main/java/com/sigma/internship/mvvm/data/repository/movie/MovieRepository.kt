@@ -1,16 +1,18 @@
 package com.sigma.internship.mvvm.data.repository.movie
 
 import com.sigma.internship.mvvm.ui.models.cast.CastLocal
+import com.sigma.internship.mvvm.ui.models.cast.CastLocalModel
 import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
-import com.sigma.internship.mvvm.ui.models.moviewdetails.MovieDurationLocalModel
 
 
 interface MovieRepository {
 
+    suspend fun savePopularMovies(): MutableList<MovieLocalModel>
+
+    suspend fun saveMovieCast(): MutableList<CastLocal>
+
     suspend fun getPopularMovies(): MutableList<MovieLocalModel>
 
-    suspend fun geMovieDuration(): MutableList<MovieDurationLocalModel>
-
-    suspend fun getCast(): MutableList<CastLocal>
+    suspend fun getPopularMovieCast(): MutableList<CastLocalModel>
 
 }

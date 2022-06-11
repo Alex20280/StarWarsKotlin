@@ -4,5 +4,6 @@ import com.sigma.internship.mvvm.data.network.models.response.movie.MovieRespons
 import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
 
 data class PopularResponseModel(
+    val page: Int,
     val results :ArrayList<MovieResponseModel>
 )

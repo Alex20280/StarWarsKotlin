@@ -3,13 +3,16 @@ package com.sigma.internship.mvvm.ui.screens.main
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sigma.internship.mvvm.data.network.models.response.popular.PopularResponseModel
 import com.sigma.internship.mvvm.databinding.ActivityStarMovieBinding
 import com.sigma.internship.mvvm.ui.base.BaseActivity
 import com.sigma.internship.mvvm.ui.screens.main.adapters.MoviesRecyclerAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class StarMovieActivity : BaseActivity<MainViewModel>() {
 
@@ -19,19 +22,22 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
     var movieList: ArrayList<PopularResponseModel>? = null
 
     override val viewModel: MainViewModel by viewModel()
+
     private val binding: ActivityStarMovieBinding by lazy { ActivityStarMovieBinding.inflate(layoutInflater) } //binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        viewModel.getPopularMovies()
-        Log.d("data","get data")
+        val list = viewModel.getPopularMovies()
+        Log.d("data","get data $list")
 
-        initializeRecyclerView()
+        initRecyclerView()
     }
 
-    private fun initializeRecyclerView() {
+
+
+    private fun initRecyclerView() {
         movieList = ArrayList()
         val recyclerView = binding.activityMainRecyclerView
         recyclerView.setHasFixedSize(true)

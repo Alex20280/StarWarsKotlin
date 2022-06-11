@@ -18,9 +18,6 @@
             android:name=".ui.screens.main.StarMovieActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.screens.main.SplashScreenActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.screens.main.CastActivity"
             android:exported="false" />
         <activity
