@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.sigma.internship.mvvm.R
+import com.sigma.internship.mvvm.data.db.MoviesDatabase
 import com.sigma.internship.mvvm.databinding.ActivityMovieDetailsBinding
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -16,6 +17,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     private lateinit var photo: String
     private lateinit var genreList: ArrayList<Int>
     private lateinit var overView: String
+
 
     //override val viewModel: MainViewModel by viewModel() //TODO
     private val binding: ActivityMovieDetailsBinding by lazy { ActivityMovieDetailsBinding.inflate(layoutInflater) } //binding

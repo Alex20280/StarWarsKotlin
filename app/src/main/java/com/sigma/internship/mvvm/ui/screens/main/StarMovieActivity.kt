@@ -3,14 +3,13 @@ package com.sigma.internship.mvvm.ui.screens.main
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sigma.internship.mvvm.data.network.models.response.popular.PopularResponseModel
 import com.sigma.internship.mvvm.databinding.ActivityStarMovieBinding
 import com.sigma.internship.mvvm.ui.base.BaseActivity
 import com.sigma.internship.mvvm.ui.screens.main.adapters.MoviesRecyclerAdapter
+import com.sigma.internship.mvvm.ui.screens.main.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -29,7 +28,7 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val list = viewModel.getPopularMovies()
+        val list = viewModel.savePopularMovies()
         Log.d("data","get data $list")
 
         initRecyclerView()

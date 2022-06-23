@@ -5,5 +5,7 @@ import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
 
 data class PopularResponseModel(
     val page: Int,
-    val results :ArrayList<MovieResponseModel>
+    val results :ArrayList<MovieResponseModel>,
+    val total_pages: Int, //??
+    val total_results: Int //??
 )

@@ -2,8 +2,9 @@ package com.sigma.internship.mvvm.data.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.sigma.internship.mvvm.data.db.entities.Cast
+import com.sigma.internship.mvvm.data.db.entities.CastModel
 import com.sigma.internship.mvvm.data.db.entities.MovieResponse
+import com.sigma.internship.mvvm.data.db.entities.MovieResponseModel
 import com.sigma.internship.mvvm.data.db.relations.MovieWithCast
 
 
@@ -11,16 +12,24 @@ import com.sigma.internship.mvvm.data.db.relations.MovieWithCast
 interface MoviesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun savePopularMovies (details: MovieResponse)
+    suspend fun savePopularMovies (response: MovieResponseModel)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveMovieCast (cast: Cast) //??
+    suspend fun saveMovieDetails (response: MovieResponse, id: Int)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun saveMovieCast (response: CastModel, id: Int)
+
+
+
+    @Query("select * FROM response")
+    suspend fun getPopularMovies(): LiveData<List<MovieResponseModel>>
 
     @Query("select * FROM movie")
-    suspend fun getPopularMovieById(): LiveData<List<MovieResponse>>
+    suspend fun getMovieDetailsById(id: Int): LiveData<List<MovieResponse>>
 
     @Transaction
     @Query ("SELECT * FROM movie_cast")
-    suspend fun getMovieAndCastById() : LiveData<List<MovieWithCast>>
+    suspend fun getCastById(id: Int) : LiveData<List<MovieWithCast>>
 
 }

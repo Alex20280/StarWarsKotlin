@@ -6,16 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.sigma.internship.mvvm.data.db.dao.MoviesDao
 import com.sigma.internship.mvvm.data.db.entities.MovieResponse
+import com.sigma.internship.mvvm.data.db.entities.MovieResponseModel
 import com.sigma.internship.mvvm.data.db.relations.MovieWithCast
 
-//@Database(entities = [MovieResponseModel::class, MovieDuration::class, Cast::class], version = 1)
 
-@Database(entities = [MovieResponse::class, MovieWithCast::class], version = 1)
+@Database(entities = [MovieResponseModel::class, MovieResponse::class, MovieWithCast::class], version = 1)
 abstract class MoviesDatabase : RoomDatabase() {
 
-    abstract fun getMovieDetailsWithId(): MoviesDao
-
-    abstract fun getMovieAndCastWithId(): MoviesDao
+    abstract fun getMovieDao(): MoviesDao
 
     companion object {
         @Volatile
