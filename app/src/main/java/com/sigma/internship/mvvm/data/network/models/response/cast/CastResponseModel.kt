@@ -2,9 +2,9 @@ package com.sigma.internship.mvvm.data.network.models.response.cast
 
 import com.sigma.internship.mvvm.ui.models.cast.CastLocalModel
 
-data class CastModel(
+data class CastResponseModel(
     val id: Int,
-    val cast: ArrayList<Cast>
+    val cast: ArrayList<CastResponse>
 ) {
     fun convertToLocalModel(): CastLocalModel {
         return CastLocalModel(

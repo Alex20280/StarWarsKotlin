@@ -4,9 +4,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "cast")
-data class Cast(
+data class CastDb(
     @PrimaryKey(autoGenerate = false)
-    val name: String,
-    val profile_path: String,
-    val character: String
-)
+    var name: String,
+    var profile_path: String,
+    var character: String)
+
+{
+    constructor() : this("", "", "")
+}

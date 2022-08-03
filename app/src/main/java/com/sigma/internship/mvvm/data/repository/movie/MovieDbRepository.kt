@@ -1,11 +1,15 @@
 package com.sigma.internship.mvvm.data.repository.movie
 
-import androidx.lifecycle.LiveData
-import com.sigma.internship.mvvm.data.db.entities.Cast
-import com.sigma.internship.mvvm.data.db.entities.CastModel
-import com.sigma.internship.mvvm.data.db.entities.MovieResponse
-import com.sigma.internship.mvvm.data.db.entities.MovieResponseModel
-import com.sigma.internship.mvvm.data.db.relations.MovieWithCast
+import com.sigma.internship.mvvm.data.db.entities.CastDbModel
+import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
+import com.sigma.internship.mvvm.data.db.entities.ResultDbModel
+import com.sigma.internship.mvvm.data.db.relations.MovieWithCastDbModel
+import com.sigma.internship.mvvm.data.network.models.response.cast.CastResponseModel
+import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponseModel
+import com.sigma.internship.mvvm.data.network.models.response.popular.ResultResponseModel
+import com.sigma.internship.mvvm.ui.models.cast.CastLocalModel
+import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
+import com.sigma.internship.mvvm.ui.models.popular.ResultLocalModel
 
 /*
  * Save and get data from Room db
@@ -13,17 +17,17 @@ import com.sigma.internship.mvvm.data.db.relations.MovieWithCast
 
 interface MovieDbRepository {
 
-    suspend fun savePopularMovies (response: MovieResponseModel)
 
-    suspend fun saveMoviesDetails (response: MovieResponse, id: Int)
+    suspend fun savePopularMovies (response: MutableList<ResultLocalModel>)
 
-    suspend fun saveMovieCast (response: CastModel, id: Int)
+    suspend fun saveMoviesDetails (response: MutableList<ResultLocalModel>, id: Int)
 
-    suspend fun getPopularMovies(): LiveData<List<MovieResponseModel>>
+    suspend fun saveMovieCast (response: MutableList<CastLocalModel>, id: Int)
 
-    suspend fun getMoviesDetails(id: Int): LiveData<List<MovieResponse>>
+    suspend fun getPopularMovies(): List<ResultDbModel>
 
-    suspend fun getMovieCast(id: Int): LiveData<List<MovieWithCast>>
+    suspend fun getMoviesDetails(id: Int): List<MovieDbModel>
 
+    suspend fun getMovieCast(id: Int): List<MovieWithCastDbModel>
 
 }

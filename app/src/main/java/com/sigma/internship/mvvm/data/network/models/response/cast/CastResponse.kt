@@ -2,7 +2,7 @@ package com.sigma.internship.mvvm.data.network.models.response.cast
 
 import com.sigma.internship.mvvm.ui.models.cast.CastLocal
 
-data class Cast(
+data class CastResponse(
     val name: String,
     val profile_path: String,
     val character: String

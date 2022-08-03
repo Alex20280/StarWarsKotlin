@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.sigma.internship.mvvm.data.db.MoviesDatabase
-import com.sigma.internship.mvvm.data.db.entities.MovieResponseModel
+import com.sigma.internship.mvvm.data.repository.movie.MovieDbRepositoryIml
 import com.sigma.internship.mvvm.databinding.ActivitySplashBinding
 import com.sigma.internship.mvvm.ui.base.BaseActivity
 import com.sigma.internship.mvvm.ui.screens.main.viewmodel.MainViewModel
@@ -15,10 +15,8 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class SplashActivity : BaseActivity<MainViewModel>() {
+class SplashActivity : AppCompatActivity() {
 
-    override val viewModel: MainViewModel by viewModel()
-    private val database = MoviesDatabase
 
     private val binding: ActivitySplashBinding by lazy { ActivitySplashBinding.inflate(layoutInflater) } //binding
 
@@ -28,15 +26,11 @@ class SplashActivity : BaseActivity<MainViewModel>() {
 
 
         CoroutineScope(Dispatchers.Main).launch {
-            val popularMovies: Unit = viewModel.savePopularMovies()
-            database.getInstance(applicationContext).getMovieDao().savePopularMovies(popularMovies)
             delay(3000)
             startActivity(Intent(this@SplashActivity, StarMovieActivity::class.java))
         }
 
     }
 
-    override fun liveDataObserver() {
-    }
 
 }

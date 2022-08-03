@@ -1,10 +1,9 @@
 package com.sigma.internship.mvvm.data.network
 
-import com.sigma.internship.mvvm.data.network.models.response.cast.Cast
-import com.sigma.internship.mvvm.data.network.models.response.cast.CastModel
-import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponseModel
-import com.sigma.internship.mvvm.data.network.models.response.popular.PopularResponseModel
+import com.sigma.internship.mvvm.data.network.models.response.cast.CastResponseModel
+import com.sigma.internship.mvvm.data.network.models.response.popular.ResultResponseModel
 import com.sigma.internship.mvvm.ui.models.cast.CastLocalModel
+import com.sigma.internship.mvvm.ui.models.popular.ResultLocalModel
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -12,12 +11,12 @@ import retrofit2.http.Query
 interface MovieApi {
 
     @GET("movie/popular")
-    suspend fun getPopularMoviesFromApi(@Query("api_key") apiKey: String?, @Query ("page") page: Int): PopularResponseModel
+    suspend fun getPopularMoviesFromApi(@Query("api_key") apiKey: String?, @Query ("page") page: Int): MutableList<ResultLocalModel>
 
-    @GET("/movie/{movie_id}")
-     fun getMovieDetailsFromApi(@Path("movie_id") movieId: Int, @Query("api_key") apiKey: String?): MovieResponseModel
+    @GET("movie/{movie_id}")
+    suspend fun getMovieDetailsFromApi(@Path("movie_id") movieId: Int, @Query("api_key") apiKey: String?): MutableList<ResultLocalModel>
 
-    @GET("/movie/{movie_id}/credits")
-    suspend fun getCastFromApi(@Path("movie_id") movieId: Int, @Query("api_key") apiKey: String?):CastModel
+    @GET("movie/{movie_id}/credits")
+    suspend fun getCastFromApi(@Path("movie_id") movieId: Int, @Query("api_key") apiKey: String?): MutableList<CastLocalModel>
 
 }
