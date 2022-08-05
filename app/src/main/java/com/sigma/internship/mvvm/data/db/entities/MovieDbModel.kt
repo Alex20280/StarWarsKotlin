@@ -5,11 +5,13 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.sigma.internship.mvvm.data.db.convertermodels.Genres
-import com.sigma.internship.mvvm.data.db.convertermodels.Results
 import com.sigma.internship.mvvm.data.db.converters.IntConverter
+import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
 
 @Entity(tableName = "movie")
+@TypeConverters(IntConverter::class)
 data class MovieDbModel(
+    var page: Int,
     @PrimaryKey(autoGenerate = false)
     var id: Int,
     var poster_path: String,
@@ -19,8 +21,16 @@ data class MovieDbModel(
     var genre_ids: Genres,
     var runtime: Int)
 
-
 {
-    constructor() : this(0, "", "", "", Genres(0),0)
+    fun convertToLocalModel(): MovieLocalModel {
+        return MovieLocalModel(
+            page,
+            id,
+            poster_path,
+            overview,
+            title,
+            genre_ids,
+            runtime
+        )
+    }
 }
-

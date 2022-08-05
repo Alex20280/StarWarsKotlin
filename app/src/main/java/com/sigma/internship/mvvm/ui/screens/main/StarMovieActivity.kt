@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.sigma.internship.mvvm.data.network.models.response.popular.ResultResponseModel
 import com.sigma.internship.mvvm.databinding.ActivityStarMovieBinding
 import com.sigma.internship.mvvm.ui.base.BaseActivity
+import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
 import com.sigma.internship.mvvm.ui.screens.main.adapters.MoviesRecyclerAdapter
 import com.sigma.internship.mvvm.ui.screens.main.viewmodel.MainViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -16,7 +19,8 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
 
     private lateinit var adapter: MoviesRecyclerAdapter
     private var layoutManager: RecyclerView.LayoutManager? = null
-    lateinit var movieList: ArrayList<ResultResponseModel> //!
+    lateinit var movieList: ArrayList<MovieLocalModel> //!lateinit var movieList: ArrayList<ResultResponseModel>
+
 
     override val viewModel by viewModel<MainViewModel>()
 
@@ -26,24 +30,48 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        getMovieFromDb()
+        getCastFromDb()
+
+        initRecyclerView()
+    }
+
+    private fun getCastFromDb() {
+        viewModel.getCast
+    }
+
+    private fun getMovieFromDb() {
+        viewModel.getMovies
     }
 
     override fun onStart() {
         super.onStart()
 
-        getDataFromApi()
-        getDataFromDb()
-        initRecyclerView()
+        CoroutineScope(Dispatchers.IO).launch {
+            saveMovies()
+            saveMovieRuntime()
+            saveCast()
+        }
     }
 
-    private fun getDataFromDb() {
-        viewModel.getPopularMoviesFromDb()
+
+    private suspend fun saveMovies() {
+        viewModel.saveMovies()
     }
 
-    private fun getDataFromApi() {
-        viewModel.savePopularMovies()
+    private suspend fun saveMovieRuntime() {
+        val movieId = movieList.map { it.id }
+        movieId.forEach {
+            viewModel.saveMoviesById(it)
+        }
     }
 
+    private suspend fun saveCast() {
+        val movieId = movieList.map { it.id }
+        movieId.forEach {
+            viewModel.saveCastById(it)
+        }
+    }
 
     private fun initRecyclerView() {
         movieList = ArrayList()
@@ -57,7 +85,7 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
     }
 
     override fun liveDataObserver() {
-        viewModel.getMovieDetails.observe(this, {
+        viewModel.getMovies.observe(this, {
             Log.d("title", it.first().title)
         })
 /*        viewModel.getCast.observe(this, {
@@ -68,3 +96,4 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
         })*/
     }
 }
+

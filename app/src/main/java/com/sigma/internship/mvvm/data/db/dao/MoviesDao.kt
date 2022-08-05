@@ -3,37 +3,32 @@ package com.sigma.internship.mvvm.data.db.dao
 import androidx.room.*
 import com.sigma.internship.mvvm.data.db.entities.CastDbModel
 import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
-import com.sigma.internship.mvvm.data.db.entities.ResultDbModel
-import com.sigma.internship.mvvm.data.db.relations.MovieWithCastDbModel
 import com.sigma.internship.mvvm.data.network.models.response.cast.CastResponseModel
-import com.sigma.internship.mvvm.data.network.models.response.popular.ResultResponseModel
-import com.sigma.internship.mvvm.ui.models.cast.CastLocalModel
-import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
-import com.sigma.internship.mvvm.ui.models.popular.ResultLocalModel
+import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponseModel
 
 
 @Dao
 interface MoviesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun savePopularMovies (response: MutableList<ResultLocalModel>)
+    suspend fun saveMovies (movies: MovieResponseModel)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveMovieDetails (response: MutableList<ResultLocalModel>, id: Int)
+    suspend fun saveDetailsById (movies: MovieResponseModel, id: Int)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveMovieCast (response: MutableList<CastLocalModel>, id: Int)
+    suspend fun saveCast (cast: CastResponseModel, id: Int)
 
-
-
-    @Query("select * FROM response")
-    suspend fun getPopularMovies(): List<ResultDbModel>
-
+    @Transaction
     @Query("select * FROM movie")
-    suspend fun getMovieDetailsById(id: Int): List<MovieDbModel>
+    suspend fun getMoviesList(): List<MovieDbModel>
+
+    @Transaction
+    @Query("select * FROM movie")
+    suspend fun getMovieById(id: Int): List<MovieDbModel>
 
     @Transaction
     @Query ("SELECT * FROM movie_cast")
-    suspend fun getCastById(id: Int) : List<MovieWithCastDbModel>
+    suspend fun getCastById(id: Int) : List<CastDbModel>
 
 }

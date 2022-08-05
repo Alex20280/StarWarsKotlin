@@ -4,40 +4,61 @@ import android.content.Context
 import com.sigma.internship.mvvm.data.db.MoviesDatabase
 import com.sigma.internship.mvvm.data.db.entities.CastDbModel
 import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
-import com.sigma.internship.mvvm.data.db.entities.ResultDbModel
-import com.sigma.internship.mvvm.data.db.relations.MovieWithCastDbModel
 import com.sigma.internship.mvvm.data.network.models.response.cast.CastResponseModel
-import com.sigma.internship.mvvm.data.network.models.response.popular.ResultResponseModel
-import com.sigma.internship.mvvm.ui.models.cast.CastLocalModel
+import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponseModel
+import com.sigma.internship.mvvm.ui.models.cast.CastLocal
 import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
-import com.sigma.internship.mvvm.ui.models.popular.ResultLocalModel
 
 class MovieDbRepositoryIml(private val context: Context): MovieDbRepository {
-    override suspend fun savePopularMovies(response: MutableList<ResultLocalModel>) {
-        MoviesDatabase.getInstance(context).getMovieDao().savePopularMovies(response)
+    override suspend fun saveMovies(response: MovieResponseModel) {
+        MoviesDatabase.getInstance(context).getMovieDao().saveMovies(response)
     }
 
-    override suspend fun saveMoviesDetails(response: MutableList<ResultLocalModel>, id: Int) {
-        MoviesDatabase.getInstance(context).getMovieDao().saveMovieDetails(response, id)
+    override suspend fun saveMovieById(response: MovieResponseModel, id: Int) {
+        MoviesDatabase.getInstance(context).getMovieDao().saveDetailsById(response, id)
     }
 
-    override suspend fun saveMovieCast(response: MutableList<CastLocalModel>, id: Int) {
-        MoviesDatabase.getInstance(context).getMovieDao().saveMovieCast(response, id)
+    override suspend fun saveCast(response: CastResponseModel, id: Int) {
+        MoviesDatabase.getInstance(context).getMovieDao().saveCast(response, id)
     }
 
 
-    override suspend fun getPopularMovies(): List<ResultDbModel> {
-        return MoviesDatabase.getInstance(context).getMovieDao().getPopularMovies()
+    override suspend fun getMovie(): MutableList<MovieLocalModel> {
+        return MoviesDatabase.getInstance(context).getMovieDao().getMoviesList().map { it.convertToLocalModel() }.toMutableList()
     }
 
-    override suspend fun getMoviesDetails(id: Int): List<MovieDbModel> {
-        return MoviesDatabase.getInstance(context).getMovieDao().getMovieDetailsById(id)
+    override suspend fun getMovieById(id: Int):  MutableList<MovieLocalModel> {
+        return MoviesDatabase.getInstance(context).getMovieDao().getMovieById(id).map { it.convertToLocalModel() }.toMutableList()
     }
 
-    override suspend fun getMovieCast(id: Int): List<MovieWithCastDbModel> {
-        return MoviesDatabase.getInstance(context).getMovieDao().getCastById(id)
+    override suspend fun getCastById(id: Int): MutableList<CastLocal> {
+        return MoviesDatabase.getInstance(context).getMovieDao().getCastById(id).map { it.convertToLocalModel() }.toMutableList()
     }
 
 
 }
 
+//override suspend fun saveMovies(response: MutableList<MovieResponseModel>) {
+//    MoviesDatabase.getInstance(context).getMovieDao().saveMovies(response)
+//}
+//
+//override suspend fun saveMoviesDetails(response: MutableList<MovieResponseModel>, id: Int) {
+//    MoviesDatabase.getInstance(context).getMovieDao().saveMovies(response, id)
+//}
+//
+//override suspend fun saveCast(response: MutableList<CastResponse>, id: Int) {
+//    MoviesDatabase.getInstance(context).getMovieDao().saveCast(response, id)
+//}
+//
+//
+//override suspend fun getMovie(): List<ResultDbModel> {
+//    return MoviesDatabase.getInstance(context).getMovieDao().getPopularMovies()
+//}
+//
+//override suspend fun getMovieById(id: Int): List<MovieDbModel> {
+//    return MoviesDatabase.getInstance(context).getMovieDao().getMovieById(id)
+//}
+//
+//override suspend fun getCast(id: Int): List<MovieWithCastDbModel> {
+//    return MoviesDatabase.getInstance(context).getMovieDao().getCastById(id)
+//}

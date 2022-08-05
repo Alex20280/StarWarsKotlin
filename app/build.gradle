@@ -49,13 +49,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // MVVM
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.0"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
 
     //Coroutines
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
-    implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:2.5.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:2.5.1"
 
     //Koin
     api "org.koin:koin-androidx-scope:2.0.1"
@@ -83,5 +83,9 @@ dependencies {
     //workManager
     implementation "androidx.work:work-runtime-ktx:2.7.1"
 
+    //Coil
+    implementation("io.coil-kt:coil:2.1.0")
 
+    // Shimmer for placeholder
+    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
 }

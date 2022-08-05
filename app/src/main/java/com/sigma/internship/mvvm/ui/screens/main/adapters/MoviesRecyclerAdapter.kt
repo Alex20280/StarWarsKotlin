@@ -14,7 +14,7 @@ import com.sigma.internship.mvvm.ui.screens.main.MovieDetailsActivity
 import com.sigma.internship.mvvm.ui.screens.main.Utils
 
 
-class MoviesRecyclerAdapter(private val list: ArrayList<ResultResponseModel>) : RecyclerView.Adapter<MoviesRecyclerAdapter.RecyclerViewHolder>() {
+class MoviesRecyclerAdapter(private val list: ArrayList<MovieLocalModel>) : RecyclerView.Adapter<MoviesRecyclerAdapter.RecyclerViewHolder>() {
 
     private lateinit var context: Context
     private var poster: String = ""
@@ -35,17 +35,15 @@ class MoviesRecyclerAdapter(private val list: ArrayList<ResultResponseModel>) : 
 
         with(holder){
             with (mylist[position]){
-                poster = "https://image.tmdb.org/t/p/w500" + recyclerViewItem.posterPath
-                Glide.with(context).load(poster).apply(RequestOptions.centerCropTransform()) //TODO Use Coil instead
+                poster = "https://image.tmdb.org/t/p/w500" + recyclerViewItem.poster_path
+                Glide.with(context).load(poster).apply(RequestOptions.centerCropTransform()) //TODO placeholder https://www.youtube.com/watch?v=-1OU04S9EWg&ab_channel=EDMTDev
                     .into(binding.posterIv)
 
                 binding.movieTitleTv.text = recyclerViewItem.title
 
-                //binding.genreTv.text = recyclerViewItem.genreIds.toString()
-                //genreList = recyclerViewItem.genre_ids
-                binding.genreTv.text =
-                    Utils.getGenre(recyclerViewItem.genreIds, Utils.CONSTANT_MAP).toString()
-                        .replace("[", "").replace("]", "")
+                binding.genreTv.text =recyclerViewItem.genre_ids.toString()
+/*                    Utils.getGenre(recyclerViewItem.genre_ids.genre_ids, Utils.CONSTANT_MAP).toString()
+                        .replace("[", "").replace("]", "")*/
 
                 binding.movieDurationTv.text = mylist.get(position).runtime.toString()
             }

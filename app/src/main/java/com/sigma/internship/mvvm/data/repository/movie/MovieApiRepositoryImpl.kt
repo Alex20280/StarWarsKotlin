@@ -1,23 +1,23 @@
 package com.sigma.internship.mvvm.data.repository.movie
 
+import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
 import com.sigma.internship.mvvm.data.network.MovieApi
 import com.sigma.internship.mvvm.data.network.Utils
+import com.sigma.internship.mvvm.data.network.models.response.cast.CastResponse
 import com.sigma.internship.mvvm.data.network.models.response.cast.CastResponseModel
-import com.sigma.internship.mvvm.data.network.models.response.popular.ResultResponseModel
-import com.sigma.internship.mvvm.ui.models.cast.CastLocalModel
-import com.sigma.internship.mvvm.ui.models.popular.ResultLocalModel
+import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponseModel
 
 class MovieApiRepositoryImpl(val api: MovieApi): MovieApiRepository {
 
-    override suspend fun getMoviesFromApi(): MutableList<ResultLocalModel> {
+    override suspend fun getMoviesFromApi(): MovieResponseModel {
        return api.getPopularMoviesFromApi(Utils.KEY,1)
     }
 
-    override suspend fun getDetailsFromApi(id: Int): MutableList<ResultLocalModel> {
-        return api.getMovieDetailsFromApi(id,Utils.KEY)
+    override suspend fun getMoviesFromApiById(id: Int): MovieResponseModel {
+        return api.getMovieDetailsFromApi(id, Utils.KEY)
     }
 
-    override suspend fun getCastFromApi(id: Int): MutableList<CastLocalModel> {
+    override suspend fun getCastFromApi(id: Int): CastResponseModel {
         return api.getCastFromApi(id, Utils.KEY)
     }
 

@@ -2,32 +2,31 @@ package com.sigma.internship.mvvm.ui.screens.main.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.sigma.internship.mvvm.data.db.entities.CastDb
+import com.sigma.internship.mvvm.data.db.entities.CastDbModel
 import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
-import com.sigma.internship.mvvm.data.db.entities.ResultDbModel
 import com.sigma.internship.mvvm.data.db.relations.MovieWithCastDbModel
 import com.sigma.internship.mvvm.ui.base.BaseViewModel
 import com.sigma.internship.mvvm.ui.models.cast.CastLocal
 import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
-import com.sigma.internship.mvvm.ui.models.popular.ResultLocalModel
 
 abstract class MainViewModel: BaseViewModel() {
 
-    abstract val getPopularMovies: LiveData<List<ResultDbModel>>
-    abstract val getMovieDetails: LiveData<List<MovieDbModel>>
-    abstract val getCast: LiveData<List<MovieWithCastDbModel>>
+    abstract val getMovies: LiveData<List<MovieLocalModel>>
+    abstract val getCast: LiveData<List<CastLocal>>
 
-    abstract fun savePopularMovies()
+    abstract suspend fun saveMovies()
 
-    abstract fun saveMovieDetails(id: Int)
+    abstract suspend fun saveMoviesById(id: Int)
 
-    abstract fun saveCast(id: Int)
+    abstract suspend fun saveCastById(id: Int)
 
-    abstract fun getPopularMoviesFromDb()
+    abstract suspend fun getAllMoviesFromDb()
 
-    abstract fun getMovieDetails(id: Int)
+    abstract suspend fun getMovieByIdFromDb(id: Int)
 
-    abstract fun getCast(id: Int)
+     abstract suspend fun getCastFromDb(id: Int)
 
 
 }
+
+

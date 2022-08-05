@@ -1,20 +1,25 @@
 package com.sigma.internship.mvvm.data.db.entities
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.sigma.internship.mvvm.data.db.convertermodels.Cast
-import com.sigma.internship.mvvm.data.db.converters.CastConverter
+import com.sigma.internship.mvvm.ui.models.cast.CastLocal
 
-@Entity(tableName = "cast_model")
+@Entity(tableName = "cast")
 data class CastDbModel(
     @PrimaryKey(autoGenerate = false)
     var id : Int,
-    @ColumnInfo (name = "cast")
-    var cast : Cast
-)
-{
-    constructor() : this(0, Cast(CastDb()))
-}
+    var name: String,
+    var profile_path: String,
+    var character: String)
 
+{
+
+    fun convertToLocalModel(): CastLocal {
+        return CastLocal(
+            id,
+            name,
+            profile_path,
+            character
+        )
+    }
+}
