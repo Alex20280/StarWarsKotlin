@@ -1,11 +1,7 @@
 package com.sigma.internship.mvvm.ui.screens.main.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.sigma.internship.mvvm.data.db.entities.CastDbModel
-import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
-import com.sigma.internship.mvvm.data.db.relations.MovieWithCastDbModel
 import com.sigma.internship.mvvm.data.repository.movie.MovieApiRepository
 import com.sigma.internship.mvvm.data.repository.movie.MovieDbRepository
 import com.sigma.internship.mvvm.ui.models.cast.CastLocal

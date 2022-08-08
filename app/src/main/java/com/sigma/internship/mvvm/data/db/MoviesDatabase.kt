@@ -5,10 +5,10 @@ import androidx.room.*
 import com.sigma.internship.mvvm.data.db.dao.MoviesDao
 import com.sigma.internship.mvvm.data.db.entities.CastDbModel
 import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
-import com.sigma.internship.mvvm.data.db.relations.MovieWithCastDbModel
+import com.sigma.internship.mvvm.data.db.relations.MovieCastCrossRef
 
 
-@Database(entities = [MovieDbModel::class, CastDbModel::class, MovieWithCastDbModel::class], version = 1, exportSchema = false)
+@Database(entities = [MovieDbModel::class, CastDbModel::class, MovieCastCrossRef::class], version = 1, exportSchema = false)
 abstract class MoviesDatabase : RoomDatabase() {
 
     abstract fun getMovieDao(): MoviesDao
@@ -23,7 +23,7 @@ abstract class MoviesDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         MoviesDatabase::class.java,
-                        "subscriber_data_database"
+                        "movie_Db"
                     ).build()
                 }
                 return instance
