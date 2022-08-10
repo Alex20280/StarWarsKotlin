@@ -1,10 +1,7 @@
 package com.sigma.internship.mvvm.data.repository.movie
 
-import androidx.lifecycle.LiveData
 import com.sigma.internship.mvvm.data.db.entities.CastDbModel
 import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
-import com.sigma.internship.mvvm.data.network.models.response.cast.CastResponseModel
-import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponseModel
 import com.sigma.internship.mvvm.ui.models.cast.CastLocal
 import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
 
@@ -15,13 +12,13 @@ import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
 interface MovieDbRepository {
 
 
-    suspend fun saveMovies (response: MovieResponseModel)
+    suspend fun saveMovies (response: MovieDbModel)
 
-    suspend fun saveMovieById (response: MovieResponseModel, id: Int)
+    suspend fun saveMovieById (response: MovieDbModel, id: Int)
 
-    suspend fun saveCast (response: CastResponseModel, id: Int)
+    suspend fun saveCast (response: CastDbModel, id: Int)
 
-    suspend fun getMovie(): List<MovieLocalModel>
+    suspend fun getMovie(): MutableList<MovieLocalModel>
 
     suspend fun getMovieById(id: Int): MutableList<MovieLocalModel>
 

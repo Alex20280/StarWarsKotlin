@@ -3,6 +3,7 @@ package com.sigma.internship.mvvm.ui.screens.main
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.sigma.internship.mvvm.databinding.ActivityStarMovieBinding
 import com.sigma.internship.mvvm.ui.base.BaseActivity
@@ -17,7 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StarMovieActivity : BaseActivity<MainViewModel>() {
 
-    private lateinit var adapter: MoviesRecyclerAdapter
+    private lateinit var movieAdapter: MoviesRecyclerAdapter
     private var layoutManager: RecyclerView.LayoutManager? = null
     lateinit var movieList: ArrayList<MovieLocalModel> //!lateinit var movieList: ArrayList<ResultResponseModel>
 
@@ -30,18 +31,6 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        getMovieFromDb()
-        getCastFromDb()
-
-        initRecyclerView()
-    }
-
-    private fun getCastFromDb() {
-        viewModel.getCast
-    }
-
-    private fun getMovieFromDb() {
-        viewModel.getMovies
     }
 
     override fun onStart() {
@@ -52,8 +41,18 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
             saveMovieRuntime()
             saveCast()
         }
+        initRecyclerView()
     }
 
+    private fun initRecyclerView() {
+        val recyclerView = binding.activityMainRecyclerView
+        movieAdapter.setHasStableIds(true)
+        val snap = LinearSnapHelper()
+        recyclerView.adapter = movieAdapter
+        layoutManager = GridLayoutManager(this, 2)
+        recyclerView.layoutManager = layoutManager
+        snap.attachToRecyclerView(recyclerView)
+    }
 
     private suspend fun saveMovies() {
         viewModel.saveMovies()
@@ -73,20 +72,20 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
         }
     }
 
-    private fun initRecyclerView() {
-        movieList = ArrayList()
-        val recyclerView = binding.activityMainRecyclerView
-        recyclerView.setHasFixedSize(true)
-        adapter = MoviesRecyclerAdapter(movieList)
-        layoutManager = GridLayoutManager(this, 2)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = layoutManager
-        Log.d("recycler","Initialize RecyclerView")
+    private fun getMovieFromDb() {
+        viewModel.getMovies
     }
 
+
+
     override fun liveDataObserver() {
-        viewModel.getMovies.observe(this, {
-            Log.d("title", it.first().title)
+        getMovieFromDb()
+
+        viewModel.getMovies.observe(this, {list ->
+            list.let {
+                movieAdapter.setSomeList(it)
+            }
+            //Log.d("title", it.first().title)
         })
 /*        viewModel.getCast.observe(this, {
             Log.d("111", it.get(1).name)

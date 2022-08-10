@@ -1,29 +1,27 @@
 package com.sigma.internship.mvvm.data.repository.movie
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import com.sigma.internship.mvvm.data.db.MoviesDatabase
-import com.sigma.internship.mvvm.data.network.models.response.cast.CastResponseModel
-import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponseModel
+import com.sigma.internship.mvvm.data.db.entities.CastDbModel
+import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
 import com.sigma.internship.mvvm.ui.models.cast.CastLocal
 import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
 
 class MovieDbRepositoryIml(private val context: Context): MovieDbRepository {
-    override suspend fun saveMovies(response: MovieResponseModel) {
+    override suspend fun saveMovies(response: MovieDbModel) {
         MoviesDatabase.getInstance(context).getMovieDao().insertMovies(response)
     }
 
-    override suspend fun saveMovieById(response: MovieResponseModel, id: Int) {
+    override suspend fun saveMovieById(response: MovieDbModel, id: Int) {
         MoviesDatabase.getInstance(context).getMovieDao().insertDetails(response, id)
     }
 
-    override suspend fun saveCast(response: CastResponseModel, id: Int) {
+    override suspend fun saveCast(response: CastDbModel, id: Int) {
         MoviesDatabase.getInstance(context).getMovieDao().insertCast(response, id)
     }
 
 
-    override suspend fun getMovie(): List<MovieLocalModel> {
+    override suspend fun getMovie(): MutableList<MovieLocalModel> {
         return MoviesDatabase.getInstance(context).getMovieDao().getMoviesList().map { it.convertToLocalModel() }.toMutableList()
     }
 
@@ -32,8 +30,7 @@ class MovieDbRepositoryIml(private val context: Context): MovieDbRepository {
     }
 
     override suspend fun getCastById(id: Int): MutableList<CastLocal> {
-        return MoviesDatabase.getInstance(context).getMovieDao().getAllCastAssociatedWithMovie(id)
-        //return MoviesDatabase.getInstance(context).getMovieDao().getCastById(id).map { it.convertToLocalModel() }.toMutableList()
+        return MoviesDatabase.getInstance(context).getMovieDao().getAllCastAssociatedWithMovie(id).map { it.castList.get(0).convertToLocalModel() }.toMutableList()
     }
 
 

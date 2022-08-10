@@ -1,7 +1,5 @@
 package com.sigma.internship.mvvm.data.network
 
-import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
-import com.sigma.internship.mvvm.data.network.models.response.cast.CastResponse
 import com.sigma.internship.mvvm.data.network.models.response.cast.CastResponseModel
 import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponseModel
 import retrofit2.http.GET

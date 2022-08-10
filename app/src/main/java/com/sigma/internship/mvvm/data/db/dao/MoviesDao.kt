@@ -1,25 +1,22 @@
 package com.sigma.internship.mvvm.data.db.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.sigma.internship.mvvm.data.db.entities.CastDbModel
 import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
 import com.sigma.internship.mvvm.data.db.relations.MovieWithListOfCast
-import com.sigma.internship.mvvm.data.network.models.response.cast.CastResponseModel
-import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponseModel
 
 
 @Dao
 interface MoviesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMovies (movies: MovieResponseModel)
+    suspend fun insertMovies (movies: MovieDbModel)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertDetails (movies: MovieResponseModel, id: Int)
+    suspend fun insertDetails (movies: MovieDbModel, id: Int)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCast (cast: CastResponseModel, id: Int)
+    suspend fun insertCast (cast: CastDbModel, id: Int)
 
 
 
@@ -32,7 +29,7 @@ interface MoviesDao {
     suspend fun getMovieById(id: Int): List<MovieDbModel>
 
     @Transaction
-    @Query("SELECT * FROM 'cast' WHERE id = :movie")
+    @Query("SELECT * FROM movie WHERE id = :movie")
     fun getAllCastAssociatedWithMovie(movie: Int): List<MovieWithListOfCast>
 }
 

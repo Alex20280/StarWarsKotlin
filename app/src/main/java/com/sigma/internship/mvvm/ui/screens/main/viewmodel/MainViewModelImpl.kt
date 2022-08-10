@@ -10,24 +10,26 @@ import kotlinx.coroutines.*
 
 class MainViewModelImpl(private val repository: MovieApiRepository, private val dbRepository: MovieDbRepository) : MainViewModel() {
 
-    override val getMovies = MutableLiveData<List<MovieLocalModel>>()
-    override val getCast = MutableLiveData<List<CastLocal>>()
+    override val getMovies = MutableLiveData<MutableList<MovieLocalModel>>()
+    override val getCast = MutableLiveData<MutableList<CastLocal>>()
 
 
     override suspend fun saveMovies() {
         CoroutineScope(Dispatchers.IO).launch {
-            dbRepository.saveMovies(repository.getMoviesFromApi())
+            dbRepository.saveMovies(repository.getMoviesFromApi().convertToDataBaseModel())
         }
     }
 
     override suspend fun saveMoviesById(id: Int) {
-        val castResponse = repository.getMoviesFromApiById(id)
-        dbRepository.saveMovieById(castResponse,id)
+        CoroutineScope(Dispatchers.IO).launch {
+            val castResponse = repository.getMoviesFromApiById(id).convertToDataBaseModel()
+            dbRepository.saveMovieById(castResponse,id)
+        }
     }
 
     override suspend fun saveCastById(id: Int) {
         CoroutineScope(Dispatchers.IO).launch {
-            val castResponse = repository.getCastFromApi(id)
+            val castResponse = repository.getCastFromApi(id).convertToDataBaseModel()
             dbRepository.saveCast(castResponse,id)
 
         }
@@ -35,22 +37,22 @@ class MainViewModelImpl(private val repository: MovieApiRepository, private val 
 
     override suspend fun getAllMoviesFromDb() { //TODO check
         viewModelScope.launch {
-            val getMovie = dbRepository.getMovie()
-            getMovies.postValue(getMovie)
+            val movieList = dbRepository.getMovie()
+            getMovies.postValue(movieList)
         }
     }
 
     override suspend fun getMovieByIdFromDb(id: Int) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val getDetails = dbRepository.getMovieById(id)
-            getMovies.postValue(getDetails)
+        viewModelScope.launch {
+            val detailsList = dbRepository.getMovieById(id)
+            getMovies.postValue(detailsList)
         }
     }
 
     override suspend fun getCastFromDb(id: Int) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val getSomeCast = dbRepository.getCastById(id)
-            getCast.postValue(getSomeCast)
+        viewModelScope.launch {
+            val castList = dbRepository.getCastById(id)
+            getCast.postValue(castList)
         }
     }
 

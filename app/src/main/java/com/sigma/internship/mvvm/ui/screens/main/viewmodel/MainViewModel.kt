@@ -7,8 +7,8 @@ import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
 
 abstract class MainViewModel: BaseViewModel() {
 
-    abstract val getMovies: LiveData<List<MovieLocalModel>>
-    abstract val getCast: LiveData<List<CastLocal>>
+    abstract val getMovies: LiveData<MutableList<MovieLocalModel>>
+    abstract val getCast: LiveData<MutableList<CastLocal>>
 
     abstract suspend fun saveMovies()
 

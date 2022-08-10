@@ -14,11 +14,11 @@ import com.sigma.internship.mvvm.ui.screens.main.MovieDetailsActivity
 import com.sigma.internship.mvvm.ui.screens.main.Utils
 
 
-class MoviesRecyclerAdapter(private val list: ArrayList<MovieLocalModel>) : RecyclerView.Adapter<MoviesRecyclerAdapter.RecyclerViewHolder>() {
+class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.RecyclerViewHolder>() {
 
     private lateinit var context: Context
     private var poster: String = ""
-    var mylist = emptyList<MovieLocalModel>()
+    private var mylist = mutableListOf<MovieLocalModel>()
 
 
     class RecyclerViewHolder(val binding: StarMovieRecycleItemBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -59,6 +59,11 @@ class MoviesRecyclerAdapter(private val list: ArrayList<MovieLocalModel>) : Recy
 
 
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = mylist.size
+
+    fun setSomeList(list: MutableList<MovieLocalModel>){
+        mylist.addAll(list)
+        notifyDataSetChanged()
+    }
 
 }
