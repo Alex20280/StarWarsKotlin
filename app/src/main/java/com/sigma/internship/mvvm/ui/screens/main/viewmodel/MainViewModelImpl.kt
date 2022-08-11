@@ -42,6 +42,16 @@ class MainViewModelImpl(private val repository: MovieApiRepository, private val 
         }
     }
 
+    override suspend fun getMovieList(): List<MovieLocalModel>{
+        val deferredlist = viewModelScope.async {
+            dbRepository.getMovie().toList()
+        }
+        val movieList = deferredlist.await()
+        return movieList
+
+
+    }
+
     override suspend fun getMovieByIdFromDb(id: Int) {
         viewModelScope.launch {
             val detailsList = dbRepository.getMovieById(id)

@@ -16,7 +16,7 @@ class CoreApp: Application() {
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@CoreApp)
-            modules(listOf(dataModule(), repositoryModule(), viewModelModule()))
+            modules(listOf(repositoryModule(), dataModule(), viewModelModule()))
         }
     }
 }

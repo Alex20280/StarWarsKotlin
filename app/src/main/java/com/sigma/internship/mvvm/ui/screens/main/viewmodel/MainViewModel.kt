@@ -18,6 +18,8 @@ abstract class MainViewModel: BaseViewModel() {
 
     abstract suspend fun getAllMoviesFromDb()
 
+    abstract suspend fun getMovieList():  List<MovieLocalModel>
+
     abstract suspend fun getMovieByIdFromDb(id: Int)
 
      abstract suspend fun getCastFromDb(id: Int)
