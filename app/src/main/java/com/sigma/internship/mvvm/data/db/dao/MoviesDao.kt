@@ -13,10 +13,10 @@ interface MoviesDao {
     suspend fun insertMovies (movies: MovieDbModel)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertDetails (movies: MovieDbModel, id: Int)
+    suspend fun insertDetails (movies: MovieDbModel)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCast (cast: CastDbModel, id: Int)
+    suspend fun insertCast (cast: CastDbModel)
 
 
 

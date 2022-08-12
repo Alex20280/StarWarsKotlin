@@ -7,11 +7,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.sigma.internship.mvvm.data.network.models.response.popular.ResultResponseModel
 import com.sigma.internship.mvvm.databinding.StarMovieRecycleItemBinding
 import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
 import com.sigma.internship.mvvm.ui.screens.main.MovieDetailsActivity
-import com.sigma.internship.mvvm.ui.screens.main.Utils
 
 
 class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.RecyclerViewHolder>() {

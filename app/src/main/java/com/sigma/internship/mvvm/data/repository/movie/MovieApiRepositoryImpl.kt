@@ -1,19 +1,18 @@
 package com.sigma.internship.mvvm.data.repository.movie
 
-import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
 import com.sigma.internship.mvvm.data.network.MovieApi
 import com.sigma.internship.mvvm.data.network.Utils
-import com.sigma.internship.mvvm.data.network.models.response.cast.CastResponse
 import com.sigma.internship.mvvm.data.network.models.response.cast.CastResponseModel
-import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponseModel
+import com.sigma.internship.mvvm.data.network.models.response.details.DetailsResponse
+import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponse
 
 class MovieApiRepositoryImpl(val api: MovieApi): MovieApiRepository {
 
-    override suspend fun getMoviesFromApi(): MovieResponseModel {
+    override suspend fun getMoviesFromApi(): MovieResponse {
        return api.getPopularMoviesFromApi(Utils.KEY,1)
     }
 
-    override suspend fun getMoviesFromApiById(id: Int): MovieResponseModel {
+    override suspend fun getMoviesFromApiById(id: Int): DetailsResponse {
         return api.getMovieDetailsFromApi(id, Utils.KEY)
     }
 

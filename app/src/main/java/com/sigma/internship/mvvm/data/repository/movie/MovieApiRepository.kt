@@ -1,9 +1,8 @@
 package com.sigma.internship.mvvm.data.repository.movie
 
-import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
-import com.sigma.internship.mvvm.data.network.models.response.cast.CastResponse
 import com.sigma.internship.mvvm.data.network.models.response.cast.CastResponseModel
-import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponseModel
+import com.sigma.internship.mvvm.data.network.models.response.details.DetailsResponse
+import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponse
 
 /*
  * Get data from API
@@ -11,9 +10,9 @@ import com.sigma.internship.mvvm.data.network.models.response.movie.MovieRespons
 
 interface MovieApiRepository {
 
-    suspend fun getMoviesFromApi(): MovieResponseModel
+    suspend fun getMoviesFromApi(): MovieResponse
 
-    suspend fun getMoviesFromApiById(id: Int): MovieResponseModel
+    suspend fun getMoviesFromApiById(id: Int): DetailsResponse
 
     suspend fun getCastFromApi(id: Int): CastResponseModel
 

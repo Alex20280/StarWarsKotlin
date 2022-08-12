@@ -14,9 +14,9 @@ interface MovieDbRepository {
 
     suspend fun saveMovies (response: MovieDbModel)
 
-    suspend fun saveMovieById (response: MovieDbModel, id: Int)
+    suspend fun saveMovieById (response: MovieDbModel)
 
-    suspend fun saveCast (response: CastDbModel, id: Int)
+    suspend fun saveCast (response: CastDbModel)
 
     suspend fun getMovie(): MutableList<MovieLocalModel>
 

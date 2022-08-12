@@ -17,7 +17,6 @@ data class MovieDbModel(
     var poster_path: String,
     var overview: String,
     var title: String,
-    @ColumnInfo(name = "genre_ids")
     var genre_ids: Genres,
     var runtime: Int)
 

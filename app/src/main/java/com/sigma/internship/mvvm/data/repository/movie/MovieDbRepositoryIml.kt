@@ -12,14 +12,13 @@ class MovieDbRepositoryIml(private val context: Context): MovieDbRepository {
         MoviesDatabase.getInstance(context).getMovieDao().insertMovies(response)
     }
 
-    override suspend fun saveMovieById(response: MovieDbModel, id: Int) {
-        MoviesDatabase.getInstance(context).getMovieDao().insertDetails(response, id)
+    override suspend fun saveMovieById(response: MovieDbModel) {
+        MoviesDatabase.getInstance(context).getMovieDao().insertDetails(response)
     }
 
-    override suspend fun saveCast(response: CastDbModel, id: Int) {
-        MoviesDatabase.getInstance(context).getMovieDao().insertCast(response, id)
+    override suspend fun saveCast(response: CastDbModel) {
+        MoviesDatabase.getInstance(context).getMovieDao().insertCast(response)
     }
-
 
     override suspend fun getMovie(): MutableList<MovieLocalModel> {
         return MoviesDatabase.getInstance(context).getMovieDao().getMoviesList().map { it.convertToLocalModel() }.toMutableList()

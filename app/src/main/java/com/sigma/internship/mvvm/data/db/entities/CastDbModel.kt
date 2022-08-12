@@ -15,7 +15,6 @@ import com.sigma.internship.mvvm.ui.models.cast.CastUi
 data class CastDbModel(
     @PrimaryKey(autoGenerate = false)
     var id : Int,
-    @ColumnInfo(name = "cast")
     val cast: Cast
 )
 

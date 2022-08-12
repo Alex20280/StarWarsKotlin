@@ -23,14 +23,14 @@ class MainViewModelImpl(private val repository: MovieApiRepository, private val 
     override suspend fun saveMoviesById(id: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             val castResponse = repository.getMoviesFromApiById(id).convertToDataBaseModel()
-            dbRepository.saveMovieById(castResponse,id)
+            dbRepository.saveMovieById(castResponse)
         }
     }
 
     override suspend fun saveCastById(id: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             val castResponse = repository.getCastFromApi(id).convertToDataBaseModel()
-            dbRepository.saveCast(castResponse,id)
+            dbRepository.saveCast(castResponse)
 
         }
     }

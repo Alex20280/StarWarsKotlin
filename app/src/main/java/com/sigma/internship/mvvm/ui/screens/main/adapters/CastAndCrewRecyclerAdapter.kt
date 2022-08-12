@@ -4,12 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.Coil
 import coil.load
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.sigma.internship.mvvm.R
-import com.sigma.internship.mvvm.data.network.models.response.popular.ResultResponseModel
+import com.sigma.internship.mvvm.data.network.models.response.movie.ResultResponseModel
 import com.sigma.internship.mvvm.databinding.CastRecycleItemBinding
 import com.sigma.internship.mvvm.ui.models.cast.CastLocal
 import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
