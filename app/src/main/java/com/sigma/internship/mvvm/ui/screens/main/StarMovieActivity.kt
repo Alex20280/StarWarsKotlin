@@ -1,15 +1,11 @@
 package com.sigma.internship.mvvm.ui.screens.main
 
 import android.os.Bundle
-import android.util.Log
-import androidx.lifecycle.map
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.sigma.internship.mvvm.data.repository.movie.MovieDbRepository
 import com.sigma.internship.mvvm.databinding.ActivityStarMovieBinding
 import com.sigma.internship.mvvm.ui.base.BaseActivity
-import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
 import com.sigma.internship.mvvm.ui.screens.main.adapters.MoviesRecyclerAdapter
 import com.sigma.internship.mvvm.ui.screens.main.viewmodel.MainViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -22,12 +18,14 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
 
     private val movieAdapter = MoviesRecyclerAdapter()
     private var layoutManager: RecyclerView.LayoutManager? = null
-    //lateinit var movieList: ArrayList<MovieLocalModel> //!lateinit var movieList: ArrayList<ResultResponseModel>
-
 
     override val viewModel by viewModel<MainViewModel>()
 
-    private val binding: ActivityStarMovieBinding by lazy { ActivityStarMovieBinding.inflate(layoutInflater) } //binding
+    private val binding: ActivityStarMovieBinding by lazy {
+        ActivityStarMovieBinding.inflate(
+            layoutInflater
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +38,8 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
 
         CoroutineScope(Dispatchers.IO).launch {
             saveMovies()
-            saveMovieRuntime()
-            saveCast()
+            saveMovieDetails()
+            saveMovieCast()
         }
         initRecyclerView()
     }
@@ -60,33 +58,17 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
         viewModel.saveMovies()
     }
 
-    private suspend fun saveMovieRuntime() {
-        //val list = viewModel.getMovies.value
-        val movieList = viewModel.getMovieList()
-        val movieId = movieList.map { it.id }
-        movieId.forEach {
-            viewModel.saveMoviesById(it)
-        }
-    }
-
-    private suspend fun saveCast() {
-        val movieList = viewModel.getMovieList()
-        val movieId = movieList.map { it.id }
-        movieId.forEach {
-            viewModel.saveCastById(it)
-        }
-    }
-
-    private fun getMovieFromDb() {
-        viewModel.getMovies
+    private suspend fun saveMovieDetails() {
+        viewModel.getMovieIds().forEach { viewModel.saveMoviesById(it) }
     }
 
 
+    private suspend fun saveMovieCast() {
+        viewModel.getMovieIds().forEach { viewModel.saveCastById(it) }
+    }
 
     override fun liveDataObserver() {
-        getMovieFromDb()
-
-        viewModel.getMovies.observe(this, {list ->
+        viewModel.getMovieAndDetails.observe(this, { list ->
             list.let {
                 movieAdapter.setSomeList(it)
             }
@@ -101,21 +83,3 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
     }
 }
 
-
-
-
-
-/*
-private suspend fun saveMovieRuntime() {
-    val movieId = movieList.map { it.id }
-    movieId.forEach {
-        viewModel.saveMoviesById(it)
-    }
-}
-
-private suspend fun saveCast() {
-    val movieId = movieList.map { it.id }
-    movieId.forEach {
-        viewModel.saveCastById(it)
-    }
-}*/

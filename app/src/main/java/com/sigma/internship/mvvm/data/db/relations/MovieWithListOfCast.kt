@@ -4,6 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
 import com.sigma.internship.mvvm.data.db.entities.CastDbModel
+import com.sigma.internship.mvvm.data.db.entities.MovieCastCrossRef
 import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
 
 data class MovieWithListOfCast(

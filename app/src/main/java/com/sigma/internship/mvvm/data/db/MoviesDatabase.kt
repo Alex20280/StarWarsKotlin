@@ -4,11 +4,12 @@ import android.content.Context
 import androidx.room.*
 import com.sigma.internship.mvvm.data.db.dao.MoviesDao
 import com.sigma.internship.mvvm.data.db.entities.CastDbModel
+import com.sigma.internship.mvvm.data.db.entities.DetailsDbModel
 import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
-import com.sigma.internship.mvvm.data.db.relations.MovieCastCrossRef
+import com.sigma.internship.mvvm.data.db.entities.MovieCastCrossRef
 
 
-@Database(entities = [MovieDbModel::class, CastDbModel::class, MovieCastCrossRef::class], version = 1, exportSchema = false)
+@Database(entities = [MovieDbModel::class, CastDbModel::class, DetailsDbModel::class, MovieCastCrossRef::class], version = 1, exportSchema = false)
 abstract class MoviesDatabase : RoomDatabase() {
 
     abstract fun getMovieDao(): MoviesDao
@@ -23,8 +24,8 @@ abstract class MoviesDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         MoviesDatabase::class.java,
-                        "movie_db"
-                    ).build()
+                        "database-name"
+                    ).allowMainThreadQueries().build()
                 }
                 return instance
             }

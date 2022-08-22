@@ -10,8 +10,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.sigma.internship.mvvm.R
 import com.sigma.internship.mvvm.data.db.MoviesDatabase
 import com.sigma.internship.mvvm.databinding.ActivityMovieDetailsBinding
+import com.sigma.internship.mvvm.ui.base.BaseActivity
+import com.sigma.internship.mvvm.ui.screens.main.viewmodel.MainViewModel
 
-class MovieDetailsActivity : AppCompatActivity() {
+class MovieDetailsActivity : BaseActivity<MainViewModel>() {
 
     private lateinit var name: String
     private lateinit var photo: String
@@ -55,5 +57,12 @@ class MovieDetailsActivity : AppCompatActivity() {
             val intent = Intent(this, CastActivity::class.java)
             startActivity(intent)
         })
+    }
+
+    override val viewModel: MainViewModel
+        get() = TODO("Not yet implemented")
+
+    override fun liveDataObserver() {
+        TODO("Not yet implemented")
     }
 }

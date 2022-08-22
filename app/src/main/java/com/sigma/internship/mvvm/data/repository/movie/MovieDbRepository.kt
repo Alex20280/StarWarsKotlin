@@ -1,9 +1,10 @@
 package com.sigma.internship.mvvm.data.repository.movie
 
 import com.sigma.internship.mvvm.data.db.entities.CastDbModel
+import com.sigma.internship.mvvm.data.db.entities.DetailsDbModel
 import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
-import com.sigma.internship.mvvm.ui.models.cast.CastLocal
-import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
+import com.sigma.internship.mvvm.ui.models.cast.CastUi
+import com.sigma.internship.mvvm.ui.models.movie.MovieAndDetailsUi
 
 /*
  * Save and get data from Room db
@@ -14,15 +15,13 @@ interface MovieDbRepository {
 
     suspend fun saveMovies (response: MovieDbModel)
 
-    suspend fun saveMovieById (response: MovieDbModel)
+    suspend fun saveDetails (response: DetailsDbModel)
 
     suspend fun saveCast (response: CastDbModel)
 
-    suspend fun getMovie(): MutableList<MovieLocalModel>
+    suspend fun getMoviesAndDetailsById(id: Int): MutableList<MovieAndDetailsUi>
 
-    suspend fun getMovieById(id: Int): MutableList<MovieLocalModel>
-
-    suspend fun getCastById(id: Int): MutableList<CastLocal>
+    suspend fun getCastById(id: Int): MutableList<CastUi>
 
 }
 

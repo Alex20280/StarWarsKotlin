@@ -1,4 +1,4 @@
-package com.sigma.internship.mvvm.data.db.relations
+package com.sigma.internship.mvvm.data.db.entities
 
 import androidx.room.*
 import com.sigma.internship.mvvm.data.db.entities.CastDbModel

@@ -8,24 +8,7 @@ data class MovieResponse(
     val id: Int,
     val poster_path: String,
     val overview: String,
-    val original_title: String,
-    val genres: ArrayList<Int>,
-    val runtime: Int)
+    val original_title: String)
 
 
-
-
-{
-    fun convertToDataBaseModel(): MovieDbModel {
-        return MovieDbModel(
-            page = 1,
-            id,
-            poster_path,
-            overview,
-            original_title,
-            Genres(),
-            runtime
-        )
-    }
-}
 

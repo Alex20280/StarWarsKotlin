@@ -63,6 +63,9 @@ dependencies {
     api "org.koin:koin-androidx-ext:2.0.1"
 
     //Room
+    implementation "androidx.room:room-ktx:2.4.3"
+    kapt "androidx.room:room-compiler:2.4.3"
+
     implementation "androidx.room:room-runtime:2.4.3"
     annotationProcessor "androidx.room:room-compiler:2.4.3"
     api "androidx.room:room-runtime:2.4.3"

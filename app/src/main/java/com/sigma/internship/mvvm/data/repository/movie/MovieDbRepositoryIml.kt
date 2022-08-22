@@ -3,16 +3,18 @@ package com.sigma.internship.mvvm.data.repository.movie
 import android.content.Context
 import com.sigma.internship.mvvm.data.db.MoviesDatabase
 import com.sigma.internship.mvvm.data.db.entities.CastDbModel
+import com.sigma.internship.mvvm.data.db.entities.DetailsDbModel
 import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
-import com.sigma.internship.mvvm.ui.models.cast.CastLocal
-import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
+import com.sigma.internship.mvvm.ui.models.cast.CastUi
+import com.sigma.internship.mvvm.ui.models.movie.MovieAndDetailsUi
 
-class MovieDbRepositoryIml(private val context: Context): MovieDbRepository {
+class MovieDbRepositoryIml(private val context: Context) : MovieDbRepository {
+
     override suspend fun saveMovies(response: MovieDbModel) {
         MoviesDatabase.getInstance(context).getMovieDao().insertMovies(response)
     }
 
-    override suspend fun saveMovieById(response: MovieDbModel) {
+    override suspend fun saveDetails(response: DetailsDbModel) {
         MoviesDatabase.getInstance(context).getMovieDao().insertDetails(response)
     }
 
@@ -20,17 +22,28 @@ class MovieDbRepositoryIml(private val context: Context): MovieDbRepository {
         MoviesDatabase.getInstance(context).getMovieDao().insertCast(response)
     }
 
-    override suspend fun getMovie(): MutableList<MovieLocalModel> {
-        return MoviesDatabase.getInstance(context).getMovieDao().getMoviesList().map { it.convertToLocalModel() }.toMutableList()
+    override suspend fun getMoviesAndDetailsById(id: Int): MutableList<MovieAndDetailsUi> {
+        val movie = MoviesDatabase.getInstance(context).getMovieDao().getMovieListById(id).toMutableList()
+        val details = MoviesDatabase.getInstance(context).getMovieDao().getDetailsListById(id).toMutableList()
+        val zipData = movie.zip(details) { movie, detail -> Pair(movie, detail) }
+        val mappedData = zipData.map { pair -> MovieAndDetailsUi.fromDatabaseEntities(pair.first, pair.second) }.toMutableList()
+        return mappedData
     }
 
-    override suspend fun getMovieById(id: Int):  MutableList<MovieLocalModel> {
-        return MoviesDatabase.getInstance(context).getMovieDao().getMovieById(id).map { it.convertToLocalModel() }.toMutableList()
+    override suspend fun getCastById(id: Int): MutableList<CastUi> {
+        val list = mutableListOf<CastUi>()
+        val cast = MoviesDatabase.getInstance(context).getMovieDao().getAllCastAssociatedWithMovie(id)
+        cast.get(0).castList.map {
+            list.add(CastUi(it.cast.name, it.cast.character, it.cast.profile_path))
+        }
+        return list
     }
 
-    override suspend fun getCastById(id: Int): MutableList<CastLocal> {
-        return MoviesDatabase.getInstance(context).getMovieDao().getAllCastAssociatedWithMovie(id).map { it.castList.get(0).convertToLocalModel() }.toMutableList()
-    }
+/*    override suspend fun getCastById(id: Int): MutableList <CastUi> {
+        val cast = MoviesDatabase.getInstance(context).getMovieDao().getAllCastAssociatedWithMovie(id)
+        val res = cast.map { it.castList.get(0) }.toMutableList().get(0).convertToLocalModel().cast.toMutableList()
+        return res
+    }*/
 
 
 }
@@ -60,3 +73,6 @@ class MovieDbRepositoryIml(private val context: Context): MovieDbRepository {
 //override suspend fun getCast(id: Int): List<MovieWithCastDbModel> {
 //    return MoviesDatabase.getInstance(context).getMovieDao().getCastById(id)
 //}
+
+
+//return MoviesDatabase.getInstance(context).getMovieDao().getMovieAndDetailsList(id).map { it.details.convertToLocalModel() }.toMutableList()

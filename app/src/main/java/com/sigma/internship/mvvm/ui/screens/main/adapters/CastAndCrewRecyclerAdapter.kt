@@ -8,17 +8,16 @@ import coil.load
 import com.sigma.internship.mvvm.R
 import com.sigma.internship.mvvm.data.network.models.response.movie.ResultResponseModel
 import com.sigma.internship.mvvm.databinding.CastRecycleItemBinding
-import com.sigma.internship.mvvm.ui.models.cast.CastLocal
-import com.sigma.internship.mvvm.ui.models.movie.MovieLocalModel
+import com.sigma.internship.mvvm.ui.models.movie.MovieAndDetailsUi
 
 //https://medium.com/swlh/how-to-use-view-binding-in-recyclerview-adapter-f818b96c678a#:~:text=View%20binding%20is%20a%20feature,file%20present%20in%20that%20module.
 
 class CastAndCrewRecyclerAdapter(): RecyclerView.Adapter<CastAndCrewRecyclerAdapter.CastAndCrewHolder>(){
 
     private lateinit var context: Context
-    private lateinit var movieCast: ArrayList<CastLocal>
+    //private lateinit var movieCast: ArrayList<CastLocal>
     private var poster: String = ""
-    private var mylist = mutableListOf<MovieLocalModel>()
+    private var mylist = mutableListOf<MovieAndDetailsUi>()
 
 
     class CastAndCrewHolder(val binding: CastRecycleItemBinding): RecyclerView.ViewHolder(binding.root) {
@@ -31,21 +30,21 @@ class CastAndCrewRecyclerAdapter(): RecyclerView.Adapter<CastAndCrewRecyclerAdap
     }
 
     override fun onBindViewHolder(holder: CastAndCrewHolder, position: Int) {
-        val recyclerViewCast: CastLocal = movieCast.get(position)
+        //val recyclerViewCast: CastLocal = movieCast.get(position)
 
-        with(holder){
+/*        with(holder){
             with(movieCast[position]){
                 //poster = "https://image.tmdb.org/t/p/w500" + recyclerViewCast.profile_path
 
                 binding.actorImageView.load(poster){placeholder(R.drawable.ic_baseline_search_24)} //TODO placeholder
-/*                Glide.with(context).load(poster).apply(RequestOptions.centerCropTransform())
-                    .into(binding.actorImageView)*/
+                //Glide.with(context).load(poster).apply(RequestOptions.centerCropTransform())
+                   // .into(binding.actorImageView)
 
                 //binding.actornameTv.text = recyclerViewCast.name
 
                 //binding.characterTv.text = recyclerViewCast.character
             }
-        }
+        }*/
     }
 
     override fun getItemCount(): Int = mylist.size

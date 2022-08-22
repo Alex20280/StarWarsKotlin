@@ -2,6 +2,7 @@ package com.sigma.internship.mvvm.data.db.dao
 
 import androidx.room.*
 import com.sigma.internship.mvvm.data.db.entities.CastDbModel
+import com.sigma.internship.mvvm.data.db.entities.DetailsDbModel
 import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
 import com.sigma.internship.mvvm.data.db.relations.MovieWithListOfCast
 
@@ -13,20 +14,19 @@ interface MoviesDao {
     suspend fun insertMovies (movies: MovieDbModel)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertDetails (movies: MovieDbModel)
+    suspend fun insertDetails (movies: DetailsDbModel)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCast (cast: CastDbModel)
 
 
-
-    @Transaction
-    @Query("select * FROM movie")
-    suspend fun getMoviesList(): List<MovieDbModel>
-
     @Transaction
     @Query("select * FROM movie WHERE id = :id")
-    suspend fun getMovieById(id: Int): List<MovieDbModel>
+    suspend fun getMovieListById(id: Int): List<MovieDbModel>
+
+    @Transaction
+    @Query("select * FROM details WHERE id = :id")
+    suspend fun getDetailsListById(id: Int): List<DetailsDbModel>
 
     @Transaction
     @Query("SELECT * FROM movie WHERE id = :movie")

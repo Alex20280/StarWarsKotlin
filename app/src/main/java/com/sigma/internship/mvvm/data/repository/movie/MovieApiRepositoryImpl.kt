@@ -5,11 +5,12 @@ import com.sigma.internship.mvvm.data.network.Utils
 import com.sigma.internship.mvvm.data.network.models.response.cast.CastResponseModel
 import com.sigma.internship.mvvm.data.network.models.response.details.DetailsResponse
 import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponse
+import com.sigma.internship.mvvm.data.network.models.response.movie.ResultResponseModel
 
 class MovieApiRepositoryImpl(val api: MovieApi): MovieApiRepository {
 
-    override suspend fun getMoviesFromApi(): MovieResponse {
-       return api.getPopularMoviesFromApi(Utils.KEY,1)
+    override suspend fun getMoviesFromApi(): ResultResponseModel {
+        return api.getPopularMoviesFromApi(Utils.KEY,1) //TODO pages
     }
 
     override suspend fun getMoviesFromApiById(id: Int): DetailsResponse {
