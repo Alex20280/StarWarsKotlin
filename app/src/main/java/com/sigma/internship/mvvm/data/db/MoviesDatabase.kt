@@ -9,7 +9,7 @@ import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
 import com.sigma.internship.mvvm.data.db.entities.MovieCastCrossRef
 
 
-@Database(entities = [MovieDbModel::class, CastDbModel::class, DetailsDbModel::class, MovieCastCrossRef::class], version = 2, exportSchema = false)
+@Database(entities = [MovieDbModel::class, CastDbModel::class, DetailsDbModel::class, MovieCastCrossRef::class], version = 3, exportSchema = false)
 abstract class MoviesDatabase : RoomDatabase() {
 
     abstract fun getMovieDao(): MoviesDao

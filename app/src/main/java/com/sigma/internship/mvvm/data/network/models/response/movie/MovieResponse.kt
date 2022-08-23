@@ -8,7 +8,7 @@ data class MovieResponse(
     val id: Int,
     val poster_path: String,
     val overview: String,
-    val original_title: String)
+    val title: String)
 
 
 

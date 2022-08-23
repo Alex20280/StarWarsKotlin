@@ -9,7 +9,7 @@ data class MovieDbModel(
     var id: Int,
     var poster_path: String,
     var overview: String,
-    var original_title: String)
+    var title: String)
 
 /*
 {

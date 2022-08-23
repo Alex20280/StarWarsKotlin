@@ -1,6 +1,5 @@
 package com.sigma.internship.mvvm.ui.models.movie
 
-import com.sigma.internship.mvvm.data.db.convertermodels.Genres
 import com.sigma.internship.mvvm.data.db.entities.DetailsDbModel
 import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
 
@@ -21,7 +20,7 @@ data class MovieAndDetailsUi (
                 id = movie.id,
                 poster_path = movie.poster_path,
                 overview = movie.overview,
-                original_title = movie.original_title,
+                original_title = movie.title,
                 genres = mutableListOf(GenreUi(details.genres.id, details.genres.name)),
                 runtime = details.runtime
             )

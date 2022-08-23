@@ -11,7 +11,7 @@ data class ResultResponseModel(
             results.get(0).id,
             results.get(0).poster_path,
             results.get(0).overview,
-            results.get(0).original_title
+            results.get(0).title
         )
     }
 }
