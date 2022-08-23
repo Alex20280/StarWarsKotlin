@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.sigma.internship.mvvm.databinding.StarMovieRecycleItemBinding
 import com.sigma.internship.mvvm.ui.models.movie.MovieAndDetailsUi
 import com.sigma.internship.mvvm.ui.screens.main.MovieDetailsActivity
@@ -36,7 +38,8 @@ class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.Recyc
             with(mylist[position]) {
 
                 poster = "https://image.tmdb.org/t/p/w500" + recyclerViewItem.poster_path
-                binding.posterIv.load(poster) //TODO placeholder https://www.youtube.com/watch?v=-1OU04S9EWg&ab_channel=EDMTDev
+                //binding.posterIv.load(poster) //TODO placeholder https://www.youtube.com/watch?v=-1OU04S9EWg&ab_channel=EDMTDev
+                Glide.with(context).load(poster).apply(RequestOptions.centerCropTransform()).into(binding.posterIv)
 
                 binding.movieTitleTv.text = recyclerViewItem.overview
 

@@ -1,5 +1,6 @@
 package com.sigma.internship.mvvm.ui.screens.main.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.sigma.internship.mvvm.data.repository.movie.MovieApiRepository
@@ -13,8 +14,9 @@ import kotlinx.coroutines.launch
 
 class MainViewModelImpl(private val repository: MovieApiRepository, private val dbRepository: MovieDbRepository) : MainViewModel() {
 
-    override val getMovieAndDetails = MutableLiveData<MutableList<MovieAndDetailsUi>>()
-    override val getCast = MutableLiveData<MutableList<CastUi>>()
+    override val getPopularMovies = MutableLiveData<MutableList<MovieAndDetailsUi>>()
+    override val getMovieAndDetailsById = MutableLiveData<MutableList<MovieAndDetailsUi>>()
+    override val getCastById = MutableLiveData<MutableList<CastUi>>()
 
     override suspend fun saveMovies() {
         CoroutineScope(Dispatchers.IO).launch {
@@ -22,7 +24,7 @@ class MainViewModelImpl(private val repository: MovieApiRepository, private val 
         }
     }
 
-    override suspend fun saveMoviesById(id: Int) {
+    override suspend fun saveDetailsById(id: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             val castResponse = repository.getMoviesFromApiById(id).convertToDataBaseModel()
             dbRepository.saveDetails(castResponse)
@@ -44,17 +46,24 @@ class MainViewModelImpl(private val repository: MovieApiRepository, private val 
         return listOfIds.await()
     }
 
-    override suspend fun getMovieByIdFromDb(id: Int) {
+    override suspend fun getPopularMovies() {
+        viewModelScope.launch {
+            val popular = dbRepository.getPopularMoviesList()
+            getPopularMovies.postValue(popular)
+        }
+    }
+
+    override suspend fun getMovieByIdFromDb(id: Int){
         viewModelScope.launch {
             val detailsList = dbRepository.getMoviesAndDetailsById(id)
-            getMovieAndDetails.postValue(detailsList)
+            getMovieAndDetailsById.postValue(detailsList)
         }
     }
 
     override suspend fun getCastFromDb(id: Int) {
         viewModelScope.launch {
             val castList = dbRepository.getCastById(id)
-            getCast.postValue(castList)
+            getCastById.postValue(castList)
         }
     }
 

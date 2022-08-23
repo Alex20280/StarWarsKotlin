@@ -4,7 +4,7 @@ import com.sigma.internship.mvvm.data.db.entities.CastDbModel
 
 data class CastUi (
     var name: String,
-    var profile_path: String,
+    var profile_path: String?,
     var character: String
 )
 
@@ -15,7 +15,7 @@ data class CastUi (
             return CastUi(
                 name = cast.cast.name,
                 profile_path = cast.cast.profile_path,
-                character = cast.cast.profile_path
+                character = cast.cast.character
             )
         }
     }

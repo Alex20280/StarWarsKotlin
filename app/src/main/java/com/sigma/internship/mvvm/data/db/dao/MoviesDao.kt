@@ -21,6 +21,14 @@ interface MoviesDao {
 
 
     @Transaction
+    @Query("select * FROM movie")
+    suspend fun getPopularMovies(): List<MovieDbModel>
+
+    @Transaction
+    @Query("select * FROM details")
+    suspend fun getPopularDetails(): List<DetailsDbModel>
+
+    @Transaction
     @Query("select * FROM movie WHERE id = :id")
     suspend fun getMovieListById(id: Int): List<MovieDbModel>
 

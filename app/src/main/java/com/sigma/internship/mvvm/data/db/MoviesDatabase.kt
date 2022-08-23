@@ -9,7 +9,7 @@ import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
 import com.sigma.internship.mvvm.data.db.entities.MovieCastCrossRef
 
 
-@Database(entities = [MovieDbModel::class, CastDbModel::class, DetailsDbModel::class, MovieCastCrossRef::class], version = 1, exportSchema = false)
+@Database(entities = [MovieDbModel::class, CastDbModel::class, DetailsDbModel::class, MovieCastCrossRef::class], version = 2, exportSchema = false)
 abstract class MoviesDatabase : RoomDatabase() {
 
     abstract fun getMovieDao(): MoviesDao
@@ -25,7 +25,7 @@ abstract class MoviesDatabase : RoomDatabase() {
                         context.applicationContext,
                         MoviesDatabase::class.java,
                         "database-name"
-                    ).allowMainThreadQueries().build()
+                    ).allowMainThreadQueries().fallbackToDestructiveMigration().build()
                 }
                 return instance
             }

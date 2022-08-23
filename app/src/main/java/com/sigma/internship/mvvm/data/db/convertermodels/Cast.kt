@@ -5,6 +5,6 @@ import androidx.room.Embedded
 data class Cast(
     @Embedded
     var name: String,
-    var profile_path: String,
+    var profile_path: String?,
     var character: String
 )

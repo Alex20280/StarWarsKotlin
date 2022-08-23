@@ -1,5 +1,6 @@
 package com.sigma.internship.mvvm.data.repository.movie
 
+import android.util.Log
 import com.sigma.internship.mvvm.data.network.MovieApi
 import com.sigma.internship.mvvm.data.network.Utils
 import com.sigma.internship.mvvm.data.network.models.response.cast.CastResponseModel
@@ -10,15 +11,21 @@ import com.sigma.internship.mvvm.data.network.models.response.movie.ResultRespon
 class MovieApiRepositoryImpl(val api: MovieApi): MovieApiRepository {
 
     override suspend fun getMoviesFromApi(): ResultResponseModel {
-        return api.getPopularMoviesFromApi(Utils.KEY,1) //TODO pages
+        val res = api.getPopularMoviesFromApi(Utils.KEY,1) //TODO pages
+        //Log.d("test", res.toString())
+        return res
     }
 
     override suspend fun getMoviesFromApiById(id: Int): DetailsResponse {
-        return api.getMovieDetailsFromApi(id, Utils.KEY)
+        val res = api.getMovieDetailsFromApi(id, Utils.KEY)
+        //Log.d("test", res.toString())
+        return res
     }
 
     override suspend fun getCastFromApi(id: Int): CastResponseModel {
-        return api.getCastFromApi(id, Utils.KEY)
+        val res = api.getCastFromApi(id, Utils.KEY)
+        Log.d("test", res.toString())
+        return res
     }
 
 

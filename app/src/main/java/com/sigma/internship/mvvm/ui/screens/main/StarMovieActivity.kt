@@ -1,6 +1,7 @@
 package com.sigma.internship.mvvm.ui.screens.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -42,6 +43,7 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
             saveMovieCast()
         }
         initRecyclerView()
+
     }
 
     private fun initRecyclerView() {
@@ -59,7 +61,7 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
     }
 
     private suspend fun saveMovieDetails() {
-        viewModel.getMovieIds().forEach { viewModel.saveMoviesById(it) }
+        viewModel.getMovieIds().forEach { viewModel.saveDetailsById(it) }
     }
 
 
@@ -68,11 +70,11 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
     }
 
     override fun liveDataObserver() {
-        viewModel.getMovieAndDetails.observe(this, { list ->
+        viewModel.getPopularMovies.observe(this, { list ->
             list.let {
                 movieAdapter.setSomeList(it)
             }
-            //Log.d("title", it.first().title)
+
         })
 /*        viewModel.getCast.observe(this, {
             Log.d("111", it.get(1).name)
