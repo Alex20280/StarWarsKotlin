@@ -11,17 +11,7 @@ import com.sigma.internship.mvvm.ui.models.cast.CastUi
 @TypeConverters(CastConverter::class)
 data class CastDbModel(
     @PrimaryKey(autoGenerate = false)
-    var id : Int,
+    val id : Int,
     val cast: Cast
 )
 
-
-/*{
-
-    fun convertToLocalModel(): CastLocal {
-        return CastLocal(
-            id,
-            arrayListOf<CastUi>(),
-        )
-    }
-}*/

@@ -1,20 +1,13 @@
 package com.sigma.internship.mvvm.ui.screens.main.adapters
 
-import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.sigma.internship.mvvm.databinding.StarMovieRecycleItemBinding
 import com.sigma.internship.mvvm.ui.models.movie.MovieAndDetailsUi
 import com.sigma.internship.mvvm.ui.screens.main.MovieDetailsActivity
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.RecyclerViewHolder>() {
@@ -45,7 +38,7 @@ class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.Recyc
                 poster = "https://image.tmdb.org/t/p/w500" + recyclerViewItem.poster_path
                 binding.posterIv.load(poster) //TODO placeholder https://www.youtube.com/watch?v=-1OU04S9EWg&ab_channel=EDMTDev
 
-                binding.movieTitleTv.text = recyclerViewItem.original_title
+                binding.movieTitleTv.text = recyclerViewItem.title
 
                 binding.genreTv.text = recyclerViewItem.genres.get(0).name
 

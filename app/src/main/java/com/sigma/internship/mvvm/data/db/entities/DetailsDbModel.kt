@@ -11,18 +11,7 @@ import com.sigma.internship.mvvm.data.db.converters.GenreConverter
 @TypeConverters(GenreConverter::class)
 data class DetailsDbModel (
     @PrimaryKey(autoGenerate = false)
-    var id: Int,
+    val id: Int,
     val genres: Genres,
-    val runtime: Int,
+    val runtime: Int
 )
-
-/*
-{
-    fun convertToLocalModel(): DetailsUI {
-        return DetailsUI(
-            id,
-            arrayListOf<GenreUi>(),
-            runtime
-        )
-    }
-}*/
