@@ -8,7 +8,7 @@ data class MovieAndDetailsUi (
     val id: Int,
     val poster_path: String,
     val overview: String,
-    val original_title: String,
+    val title: String,
     val genres: List<GenreUi>,
     val runtime: Int,
 
@@ -20,7 +20,7 @@ data class MovieAndDetailsUi (
                 id = movie.id,
                 poster_path = movie.poster_path,
                 overview = movie.overview,
-                original_title = movie.title,
+                title = movie.title,
                 genres = mutableListOf(GenreUi(details.genres.id, details.genres.name)),
                 runtime = details.runtime
             )
