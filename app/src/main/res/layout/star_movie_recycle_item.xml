@@ -65,7 +65,7 @@
             android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/dotIv"
             android:textColor="#878D95"
-            android:text="2hr 10m"
+            android:text="2hr 10m "
             android:textSize="12sp" />
 
     </RelativeLayout>

@@ -20,7 +20,7 @@ abstract class MainViewModel: BaseViewModel() {
 
     abstract suspend fun getMovieIds(): List<Int>
 
-    abstract suspend fun getPopularMovies()
+    abstract fun getPopularMovies()
 
     abstract suspend fun getMovieByIdFromDb(id: Int)
 

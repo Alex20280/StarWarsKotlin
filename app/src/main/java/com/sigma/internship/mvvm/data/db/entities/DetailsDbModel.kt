@@ -11,7 +11,7 @@ import com.sigma.internship.mvvm.data.db.converters.GenreConverter
 @TypeConverters(GenreConverter::class)
 data class DetailsDbModel (
     @PrimaryKey(autoGenerate = false)
-    val id: Int,
+    var id: Int,
     val genres: Genres,
     val runtime: Int,
 )

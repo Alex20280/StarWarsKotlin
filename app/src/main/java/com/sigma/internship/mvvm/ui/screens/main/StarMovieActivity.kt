@@ -70,6 +70,7 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
     }
 
     override fun liveDataObserver() {
+        viewModel.getPopularMovies()
         viewModel.getPopularMovies.observe(this, { list ->
             list.let {
                 movieAdapter.setSomeList(it)

@@ -46,9 +46,10 @@ class MainViewModelImpl(private val repository: MovieApiRepository, private val 
         return listOfIds.await()
     }
 
-    override suspend fun getPopularMovies() {
+    override fun getPopularMovies() {
         viewModelScope.launch {
             val popular = dbRepository.getPopularMoviesList()
+            //Log.d("test", popular.toString())
             getPopularMovies.postValue(popular)
         }
     }

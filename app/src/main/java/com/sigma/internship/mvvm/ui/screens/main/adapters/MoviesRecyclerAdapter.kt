@@ -2,6 +2,7 @@ package com.sigma.internship.mvvm.ui.screens.main.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,11 +12,13 @@ import com.bumptech.glide.request.RequestOptions
 import com.sigma.internship.mvvm.databinding.StarMovieRecycleItemBinding
 import com.sigma.internship.mvvm.ui.models.movie.MovieAndDetailsUi
 import com.sigma.internship.mvvm.ui.screens.main.MovieDetailsActivity
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.RecyclerViewHolder>() {
 
-    private lateinit var context: Context
     private var poster: String = ""
     private var mylist = mutableListOf<MovieAndDetailsUi>()
 
@@ -37,24 +40,24 @@ class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.Recyc
         with(holder) {
             with(mylist[position]) {
 
-                poster = "https://image.tmdb.org/t/p/w500" + recyclerViewItem.poster_path
-                //binding.posterIv.load(poster) //TODO placeholder https://www.youtube.com/watch?v=-1OU04S9EWg&ab_channel=EDMTDev
-                Glide.with(context).load(poster).apply(RequestOptions.centerCropTransform()).into(binding.posterIv)
+                //Log.d("test", mylist.toString())
 
-                binding.movieTitleTv.text = recyclerViewItem.overview
+                poster = "https://image.tmdb.org/t/p/w500" + recyclerViewItem.poster_path
+                binding.posterIv.load(poster) //TODO placeholder https://www.youtube.com/watch?v=-1OU04S9EWg&ab_channel=EDMTDev
+
+                binding.movieTitleTv.text = recyclerViewItem.original_title
 
                 binding.genreTv.text = recyclerViewItem.genres.get(0).name
-/*                    Utils.getGenre(recyclerViewItem.genre_ids.genre_ids, Utils.CONSTANT_MAP).toString()
-                        .replace("[", "").replace("]", "")*/
 
-                binding.movieDurationTv.text = mylist.get(position).runtime.toString()
+                binding.movieDurationTv.text = convertTime(mylist.get(position).runtime) //TODO fix time
+                //Log.d("test", mylist.get(position).runtime.toString() )
             }
         }
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, MovieDetailsActivity::class.java)
+            val intent = Intent(holder.binding.root.context, MovieDetailsActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK //TODO add movie id to extras
-            context.startActivity(intent)
+            holder.binding.root.context.startActivity(intent)
         }
 
     }
@@ -65,6 +68,11 @@ class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.Recyc
     fun setSomeList(list: MutableList<MovieAndDetailsUi>) {
         mylist.addAll(list)
         notifyDataSetChanged()
+    }
+
+    fun convertTime(duration: Int):String{
+        val res =  duration/60
+        return res.toString()
     }
 
 }
