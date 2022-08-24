@@ -42,6 +42,9 @@ class DetailsActivity : BaseActivity<MainViewModel>() {
     override fun liveDataObserver() {
         viewModel.getMovieAndDetailsById.observe(this, { list ->
 
+
+
+
         })
     }
 
