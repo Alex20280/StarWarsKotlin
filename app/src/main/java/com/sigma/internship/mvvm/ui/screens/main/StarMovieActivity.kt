@@ -2,9 +2,13 @@ package com.sigma.internship.mvvm.ui.screens.main
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.sigma.internship.mvvm.R
 import com.sigma.internship.mvvm.databinding.ActivityStarMovieBinding
 import com.sigma.internship.mvvm.ui.base.BaseActivity
 import com.sigma.internship.mvvm.ui.screens.main.adapters.MoviesRecyclerAdapter
@@ -31,6 +35,9 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.title = "Star Movie"
 
     }
 
@@ -77,12 +84,18 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
             }
 
         })
-/*        viewModel.getCast.observe(this, {
-            Log.d("111", it.get(1).name)
-        })
-        viewModel.getPopularMovies.observe(this,{
-            Log.d("111", it.first().results.get(1).title)
-        })*/
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search_item,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.action_settings -> Toast.makeText(this,"Search", Toast.LENGTH_LONG).show() //TODO make search function
+        }
+        return true
     }
 }
 

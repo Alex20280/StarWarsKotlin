@@ -2,6 +2,7 @@ package com.sigma.internship.mvvm.ui.screens.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import com.sigma.internship.mvvm.data.db.MoviesDatabase
 import com.sigma.internship.mvvm.data.repository.movie.MovieDbRepositoryIml
@@ -23,6 +24,10 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        getActionBar()?.hide()
+        getSupportActionBar()?.setDisplayShowTitleEnabled(false);
+
 
 
         CoroutineScope(Dispatchers.Main).launch {

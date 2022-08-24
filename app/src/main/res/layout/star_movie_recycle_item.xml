@@ -11,64 +11,73 @@
     android:layout_marginStart="10dp"
     android:layout_marginBottom="10dp"
     android:layout_marginTop="0dp">
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/posterIv"
             android:layout_width="145dp"
             android:layout_height="185dp"
             android:background="@drawable/johnwick"
             android:scaleType="centerCrop" />
-
+        </LinearLayout>
         <TextView
             android:id="@+id/movieTitleTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/posterIv"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="5dp"
             android:scaleType="centerCrop"
             android:text="John Wick 3"
             android:textColor="@color/white"
             android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/genreTv"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/movieTitleTv"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="5dp"
-            android:scaleType="centerCrop"
-            android:text="Crime"
-            android:textColor="#878D95"
-            android:textSize="12sp" />
+            android:layout_gravity="bottom">
+            <TextView
+                android:id="@+id/genreTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/movieTitleTv"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="5dp"
+                android:scaleType="centerCrop"
+                android:text="Crime"
+                android:textColor="#878D95"
+                android:textSize="12sp" />
 
-        <ImageView
-            android:id="@+id/dotIv"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ellipse"
-            android:layout_toEndOf="@+id/genreTv"
-            android:layout_below="@+id/movieTitleTv"
+            <ImageView
+                android:id="@+id/dotIv"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ellipse"
+                android:layout_toEndOf="@+id/genreTv"
+                android:layout_below="@+id/movieTitleTv"
 
-            />
+                />
 
-        <TextView
-            android:id="@+id/movieDurationTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/movieTitleTv"
-            android:layout_marginStart="5dp"
-            android:layout_toEndOf="@+id/dotIv"
-            android:textColor="#878D95"
-            android:text="2hr 10m "
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/movieDurationTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/movieTitleTv"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@+id/dotIv"
+                android:text="2hr 10m "
+                android:textColor="#878D95"
+                android:textSize="12sp" />
+        </LinearLayout>
 
-    </RelativeLayout>
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>
 

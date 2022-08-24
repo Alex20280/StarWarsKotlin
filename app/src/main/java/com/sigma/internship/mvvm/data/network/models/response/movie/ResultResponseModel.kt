@@ -8,10 +8,10 @@ data class ResultResponseModel(
 
     fun convertToDataBaseModel(): MovieDbModel {
         return MovieDbModel(
-            results.get(0).id,
-            results.get(0).poster_path,
-            results.get(0).overview,
-            results.get(0).title
+            results.get(3).id,
+            results.get(3).poster_path,
+            results.get(3).overview,
+            results.get(3).title
         )
     }
 }

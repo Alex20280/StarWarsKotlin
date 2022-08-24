@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MVVM">
         <activity
-            android:name=".ui.screens.main.MovieDetailsActivity"
+            android:name=".ui.screens.main.DetailsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.screens.main.StarMovieActivity"

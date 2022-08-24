@@ -1,20 +1,13 @@
 package com.sigma.internship.mvvm.ui.screens.main.adapters
 
-import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.sigma.internship.mvvm.databinding.StarMovieRecycleItemBinding
 import com.sigma.internship.mvvm.ui.models.movie.MovieAndDetailsUi
-import com.sigma.internship.mvvm.ui.screens.main.MovieDetailsActivity
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
+import com.sigma.internship.mvvm.ui.screens.main.DetailsActivity
 
 
 class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.RecyclerViewHolder>() {
@@ -49,18 +42,22 @@ class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.Recyc
 
                 binding.genreTv.text = recyclerViewItem.genres.get(0).name
 
-                binding.movieDurationTv.text = convertTime(mylist.get(position).runtime) //TODO fix time
-                //Log.d("test", mylist.get(position).runtime.toString() )
+                binding.movieDurationTv.text = convertTime(mylist.get(position).runtime)
+
             }
         }
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.binding.root.context, MovieDetailsActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK //TODO add movie id to extras
+            val id: String = holder.itemView.id.toString()
+
+            val intent = Intent(holder.binding.root.context, DetailsActivity::class.java)
+            intent.putExtra("id", id)
+            //intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK //TODO add movie id to extras
             holder.binding.root.context.startActivity(intent)
         }
 
     }
+
 
 
     override fun getItemCount(): Int = mylist.size
@@ -71,8 +68,10 @@ class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.Recyc
     }
 
     fun convertTime(duration: Int):String{
-        val res =  duration/60
-        return res.toString()
+
+        val hours = duration/60
+        val min = duration % 60
+        return String.format("%2dhr %02dm", hours, min)
     }
 
 }

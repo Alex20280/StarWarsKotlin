@@ -1,6 +1,7 @@
 package com.sigma.internship.mvvm.data.repository.movie
 
 import android.content.Context
+import android.util.Log
 import com.sigma.internship.mvvm.data.db.MoviesDatabase
 import com.sigma.internship.mvvm.data.db.entities.CastDbModel
 import com.sigma.internship.mvvm.data.db.entities.DetailsDbModel
@@ -24,6 +25,7 @@ class MovieDbRepositoryIml(private val context: Context) : MovieDbRepository {
 
     override suspend fun getPopularMoviesList(): MutableList<MovieAndDetailsUi> {
         val movie = MoviesDatabase.getInstance(context).getMovieDao().getPopularMovies().toMutableList()
+        Log.d("test", movie.toString())
         val details = MoviesDatabase.getInstance(context).getMovieDao().getPopularDetails().toMutableList()
         val zipData = movie.zip(details) { movie, detail -> Pair(movie, detail) }
         val mappedData = zipData.map { pair -> MovieAndDetailsUi.fromDatabaseEntities(pair.first, pair.second) }.toMutableList()
