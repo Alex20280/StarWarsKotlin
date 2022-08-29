@@ -1,30 +1,33 @@
 package com.sigma.internship.mvvm.ui.screens.main.adapters
 
-import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.sigma.internship.mvvm.databinding.StarMovieRecycleItemBinding
+import com.sigma.internship.mvvm.ui.UtilsUi
 import com.sigma.internship.mvvm.ui.models.movie.MovieAndDetailsUi
-import com.sigma.internship.mvvm.ui.screens.main.DetailsActivity
 
 
-class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.RecyclerViewHolder>() {
+class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.RecyclerViewHolder>(){
 
-    private var poster: String = ""
+    private lateinit var mListener: onItemClickListener
     private var mylist = mutableListOf<MovieAndDetailsUi>()
 
-
-    class RecyclerViewHolder(val binding: StarMovieRecycleItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
+    interface onItemClickListener{
+        fun onItemClick (position: Int)
     }
+
+    fun setOnclickListener (listener: onItemClickListener) {
+        mListener = listener
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         val binding =
             StarMovieRecycleItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return RecyclerViewHolder(binding);
+        return RecyclerViewHolder(binding, mListener);
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
@@ -33,12 +36,9 @@ class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.Recyc
         with(holder) {
             with(mylist[position]) {
 
-                //Log.d("test", mylist.toString())
+                binding.posterIv.load(UtilsUi.POSTER_BASE + recyclerViewItem.poster_path) //TODO placeholder https://www.youtube.com/watch?v=-1OU04S9EWg&ab_channel=EDMTDev
 
-                poster = "https://image.tmdb.org/t/p/w500" + recyclerViewItem.poster_path
-                binding.posterIv.load(poster) //TODO placeholder https://www.youtube.com/watch?v=-1OU04S9EWg&ab_channel=EDMTDev
-
-                binding.movieTitleTv.text = recyclerViewItem.original_title
+                binding.movieTitleTv.text = recyclerViewItem.title
 
                 binding.genreTv.text = recyclerViewItem.genres.get(0).name
 
@@ -46,16 +46,6 @@ class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.Recyc
 
             }
         }
-
-        holder.itemView.setOnClickListener {
-            val id: String = holder.itemView.id.toString()
-
-            val intent = Intent(holder.binding.root.context, DetailsActivity::class.java)
-            intent.putExtra("id", id)
-            //intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK //TODO add movie id to extras
-            holder.binding.root.context.startActivity(intent)
-        }
-
     }
 
 
@@ -72,6 +62,17 @@ class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.Recyc
         val hours = duration/60
         val min = duration % 60
         return String.format("%2dhr %02dm", hours, min)
+    }
+
+    class RecyclerViewHolder(val binding: StarMovieRecycleItemBinding,  listener: onItemClickListener): RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            itemView.setOnClickListener {
+                listener.onItemClick(bindingAdapterPosition)
+            }
+        }
+
+
     }
 
 }

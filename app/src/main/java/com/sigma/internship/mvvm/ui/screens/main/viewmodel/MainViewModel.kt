@@ -22,7 +22,7 @@ abstract class MainViewModel: BaseViewModel() {
 
     abstract fun getPopularMovies()
 
-    abstract suspend fun getMovieByIdFromDb(id: Int)
+    abstract fun getMovieByIdFromDb(id: Int)
 
      abstract suspend fun getCastFromDb(id: Int)
 

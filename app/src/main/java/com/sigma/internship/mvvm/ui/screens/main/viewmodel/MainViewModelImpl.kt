@@ -54,7 +54,7 @@ class MainViewModelImpl(private val repository: MovieApiRepository, private val 
         }
     }
 
-    override suspend fun getMovieByIdFromDb(id: Int){
+    override fun getMovieByIdFromDb(id: Int){
         viewModelScope.launch {
             val detailsList = dbRepository.getMoviesAndDetailsById(id)
             getMovieAndDetailsById.postValue(detailsList)
