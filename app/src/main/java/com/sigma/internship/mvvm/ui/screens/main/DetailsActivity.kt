@@ -1,11 +1,14 @@
 package com.sigma.internship.mvvm.ui.screens.main
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import coil.load
 import com.sigma.internship.mvvm.R
 import com.sigma.internship.mvvm.databinding.ActivityMovieDetailsBinding
+import com.sigma.internship.mvvm.ui.UtilsUi
 import com.sigma.internship.mvvm.ui.base.BaseActivity
 import com.sigma.internship.mvvm.ui.screens.main.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,27 +29,34 @@ class DetailsActivity : BaseActivity<MainViewModel>() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = ""
+        val actionBar = getSupportActionBar()
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.backarrow);
+            supportActionBar?.title = ""
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         val intent = intent
         id = intent.getIntExtra("id", 0)
 
-        binding.moviewNameTv.text = id.toString()
+        Log.d("text1", id.toString())
+        viewModel.getMovieByIdFromDb(id)
     }
 
     override fun liveDataObserver() {
-/*        viewModel.getMovieByIdFromDb(id)
+
+        Log.d("text", id.toString())
         viewModel.getMovieAndDetailsById.observe(this, { list ->
                 list.let {
                     with(binding) {
-                        mainPosterIv.load(it.get(0).poster_path)
+                        mainPosterIv.load(UtilsUi.POSTER_BASE+it.get(0).poster_path)
                         moviewNameTv.text = it.get(0).title
+                        moviewDurationTv.text = convertTime(it.get(0).runtime)
                         moviewGenreTv.text = it.get(0).genres.get(0).name
                         sinopsinTextTv.text = it.get(0).overview
                     }
                 }
-        })*/
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -57,9 +67,15 @@ class DetailsActivity : BaseActivity<MainViewModel>() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.menu.forward_item -> Toast.makeText(this, "Forward button pressed", Toast.LENGTH_LONG)
-                .show()
+            R.menu.forward_item -> startActivity(Intent(this@DetailsActivity, CastActivity::class.java))
+            R.id.home -> startActivity(Intent(this@DetailsActivity, StarMovieActivity::class.java))
         }
         return true
+    }
+
+    fun convertTime(duration: Int):String{
+        val hours = duration/60
+        val min = duration % 60
+        return String.format("%2dhr %02dm", hours, min)
     }
 }

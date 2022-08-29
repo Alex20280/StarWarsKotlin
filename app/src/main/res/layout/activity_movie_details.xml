@@ -13,7 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/white"
         android:backgroundTint="@color/black"
         android:orientation="vertical"
@@ -98,9 +98,10 @@
             android:text="@string/in_this_third_installment_of_the_adrenaline_fueled_action_franchise_super_assassin_john_wick_returns_with_a_14_million_price_tag_on_his_head_and_an_army_of_bounty_hunting_show_more"
             android:textColor="@color/white"
             android:textSize="14sp"
+            android:ellipsize="start"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="427dp"
             app:layout_constraintTop_toBottomOf="@+id/sinopsisTv" />
 
         <TextView
