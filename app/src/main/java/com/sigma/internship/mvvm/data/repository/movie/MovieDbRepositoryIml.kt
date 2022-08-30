@@ -25,7 +25,6 @@ class MovieDbRepositoryIml(private val context: Context) : MovieDbRepository {
 
     override suspend fun getPopularMoviesList(): MutableList<MovieAndDetailsUi> {
         val movie = MoviesDatabase.getInstance(context).getMovieDao().getPopularMovies().toMutableList()
-        Log.d("test", movie.toString())
         val details = MoviesDatabase.getInstance(context).getMovieDao().getPopularDetails().toMutableList()
         val zipData = movie.zip(details) { movie, detail -> Pair(movie, detail) }
         val mappedData = zipData.map { pair -> MovieAndDetailsUi.fromDatabaseEntities(pair.first, pair.second) }.toMutableList()
@@ -42,9 +41,10 @@ class MovieDbRepositoryIml(private val context: Context) : MovieDbRepository {
 
     override suspend fun getCastById(id: Int): MutableList<CastUi> {
         val list = mutableListOf<CastUi>()
+        Log.d("castlist", list.toString())
         val cast = MoviesDatabase.getInstance(context).getMovieDao().getAllCastAssociatedWithMovie(id)
         cast.get(0).castList.map {
-            list.add(CastUi(it.cast.name, it.cast.profile_path, it.cast.character))
+            list.add(CastUi(it.cast.name, it.cast?.profile_path, it.cast.character))
         }
         return list
     }

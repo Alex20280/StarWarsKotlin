@@ -61,9 +61,10 @@ class MainViewModelImpl(private val repository: MovieApiRepository, private val 
         }
     }
 
-    override suspend fun getCastFromDb(id: Int) {
+    override fun getCastFromDb(id: Int) {
         viewModelScope.launch {
             val castList = dbRepository.getCastById(id)
+            //Log.d("some", castList.toString())
             getCastById.postValue(castList)
         }
     }

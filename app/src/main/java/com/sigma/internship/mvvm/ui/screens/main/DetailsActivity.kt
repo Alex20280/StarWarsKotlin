@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.core.app.NavUtils
 import coil.load
 import com.sigma.internship.mvvm.R
 import com.sigma.internship.mvvm.databinding.ActivityMovieDetailsBinding
@@ -39,8 +41,14 @@ class DetailsActivity : BaseActivity<MainViewModel>() {
         val intent = intent
         id = intent.getIntExtra("id", 0)
 
-        Log.d("text1", id.toString())
         viewModel.getMovieByIdFromDb(id)
+        viewModel.getCastFromDb(id)
+
+        binding.viewAllTv.setOnClickListener {
+            val intent = Intent(this@DetailsActivity, CastActivity::class.java)
+            intent.putExtra("id", id.toString())
+            startActivity(intent)
+        }
     }
 
     override fun liveDataObserver() {
@@ -66,11 +74,23 @@ class DetailsActivity : BaseActivity<MainViewModel>() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.menu.forward_item -> startActivity(Intent(this@DetailsActivity, CastActivity::class.java))
-            R.id.home -> startActivity(Intent(this@DetailsActivity, StarMovieActivity::class.java))
+        return when (item.itemId) {
+            android.R.id.home -> {
+                if (parentActivityIntent == null) {
+                    onBackPressed()
+                } else {
+                    NavUtils.navigateUpFromSameTask(this)
+                }
+                true
+            }
+            R.id.action_settings -> {
+                val intent = Intent(this@DetailsActivity, CastActivity::class.java)
+                intent.putExtra("id", id.toString())
+                startActivity(intent)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return true
     }
 
     fun convertTime(duration: Int):String{

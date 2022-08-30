@@ -24,7 +24,7 @@ abstract class MainViewModel: BaseViewModel() {
 
     abstract fun getMovieByIdFromDb(id: Int)
 
-     abstract suspend fun getCastFromDb(id: Int)
+    abstract fun getCastFromDb(id: Int)
 
 
 }

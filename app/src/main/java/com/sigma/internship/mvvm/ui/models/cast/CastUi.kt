@@ -14,7 +14,7 @@ data class CastUi (
         fun fromDatabaseEntities(cast: CastDbModel): CastUi {
             return CastUi(
                 name = cast.cast.name,
-                profile_path = cast.cast.profile_path,
+                profile_path = cast.cast?.profile_path,
                 character = cast.cast.character
             )
         }

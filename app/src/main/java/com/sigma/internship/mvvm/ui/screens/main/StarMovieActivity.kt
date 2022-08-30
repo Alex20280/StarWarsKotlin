@@ -57,21 +57,24 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
 
     private fun initRecyclerView() {
         val recyclerView = binding.activityMainRecyclerView
-        movieAdapter.setHasStableIds(true)
+        if (!movieAdapter.hasObservers()) {
+            movieAdapter.setHasStableIds(true)
+        }
         val snap = LinearSnapHelper()
         recyclerView.adapter = movieAdapter
         movieAdapter.setOnclickListener(object : MoviesRecyclerAdapter.onItemClickListener{
             override fun onItemClick(position: Int) {
                 mylist = viewModel.getPopularMovies.value!!
-                val recyclerViewItem = mylist?.get(position)
+                val recyclerViewItem = mylist.get(position)
                 val intent = Intent(this@StarMovieActivity, DetailsActivity::class.java)
-                intent.putExtra("id", recyclerViewItem?.id)
+                intent.putExtra("id", recyclerViewItem.id)
                 startActivity(intent)
             }
 
         })
         layoutManager = GridLayoutManager(this, 2)
         recyclerView.layoutManager = layoutManager
+        recyclerView.setOnFlingListener(null);
         snap.attachToRecyclerView(recyclerView)
     }
 
