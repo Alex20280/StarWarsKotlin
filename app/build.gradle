@@ -92,4 +92,7 @@ dependencies {
 
     // Shimmer for placeholder
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
+
+    //Extandable textview https://github.com/glailton/ExpandableTextView
+    implementation 'io.github.glailton.expandabletextview:expandabletextview:1.0.2'
 }
