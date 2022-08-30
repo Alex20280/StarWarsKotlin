@@ -11,7 +11,6 @@ class MovieApiRepositoryImpl(val api: MovieApi) : MovieApiRepository {
 
     override suspend fun getMoviesFromApi(): ResultResponseModel {
         val res = api.getPopularMoviesFromApi(Utils.KEY, 1) //TODO pages
-        //Log.d("test", res.toString())
         return res
     }
     /*

@@ -13,7 +13,7 @@ import com.sigma.internship.mvvm.ui.models.movie.MovieAndDetailsUi
 interface MovieDbRepository {
 
 
-    suspend fun saveMovies (response: MovieDbModel)
+    suspend fun saveMovies (response: List <MovieDbModel>)
 
     suspend fun saveDetails (response: DetailsDbModel)
 

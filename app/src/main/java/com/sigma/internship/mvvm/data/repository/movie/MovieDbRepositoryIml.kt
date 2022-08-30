@@ -11,7 +11,7 @@ import com.sigma.internship.mvvm.ui.models.movie.MovieAndDetailsUi
 
 class MovieDbRepositoryIml(private val context: Context) : MovieDbRepository {
 
-    override suspend fun saveMovies(response: MovieDbModel) {
+    override suspend fun saveMovies(response: List <MovieDbModel>) {
         MoviesDatabase.getInstance(context).getMovieDao().insertMovies(response)
     }
 

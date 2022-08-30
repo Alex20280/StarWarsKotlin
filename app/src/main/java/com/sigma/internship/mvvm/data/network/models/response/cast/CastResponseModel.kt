@@ -18,3 +18,14 @@ data class CastResponseModel(
         )
     }
 }
+
+/*
+{
+
+    fun convertToDataBaseModel(): CastDbModel {
+        return CastDbModel(
+            id,
+            Cast(cast.get(0).name, cast.get(0).profile_path, cast.get(0).character)
+        )
+    }
+}*/

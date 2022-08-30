@@ -11,7 +11,7 @@ import com.sigma.internship.mvvm.data.db.relations.MovieWithListOfCast
 interface MoviesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMovies (movies: MovieDbModel)
+    suspend fun insertMovies (movieList: List <MovieDbModel>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDetails (movies: DetailsDbModel)

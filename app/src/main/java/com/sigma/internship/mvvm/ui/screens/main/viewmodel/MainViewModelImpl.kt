@@ -3,6 +3,8 @@ package com.sigma.internship.mvvm.ui.screens.main.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
+import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponse
 import com.sigma.internship.mvvm.data.repository.movie.MovieApiRepository
 import com.sigma.internship.mvvm.data.repository.movie.MovieDbRepository
 import com.sigma.internship.mvvm.ui.models.cast.CastUi
@@ -20,7 +22,8 @@ class MainViewModelImpl(private val repository: MovieApiRepository, private val 
 
     override suspend fun saveMovies() {
         CoroutineScope(Dispatchers.IO).launch {
-            dbRepository.saveMovies(repository.getMoviesFromApi().convertToDataBaseModel())
+            //dbRepository.saveMovies(repository.getMoviesFromApi().convertToDataBaseModel())
+            dbRepository.saveMovies(repository.getMoviesFromApi().results.map { movieResponse -> MovieDbModel(movieResponse.id, movieResponse.poster_path, movieResponse.overview, movieResponse.title )  }).also { Log.d("test",repository.getMoviesFromApi().results.toString()) }
         }
     }
 

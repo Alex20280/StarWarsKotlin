@@ -2,6 +2,7 @@ package com.sigma.internship.mvvm.ui.screens.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -62,12 +63,13 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
         }
         val snap = LinearSnapHelper()
         recyclerView.adapter = movieAdapter
-        movieAdapter.setOnclickListener(object : MoviesRecyclerAdapter.onItemClickListener{
+        movieAdapter.setOnclickListener(object : MoviesRecyclerAdapter.onItemClickListener {
             override fun onItemClick(position: Int) {
                 mylist = viewModel.getPopularMovies.value!!
                 val recyclerViewItem = mylist.get(position)
                 val intent = Intent(this@StarMovieActivity, DetailsActivity::class.java)
                 intent.putExtra("id", recyclerViewItem.id)
+                intent.putExtra("runtime", recyclerViewItem.runtime)
                 startActivity(intent)
             }
 
@@ -112,6 +114,12 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
                 .show() //TODO make search function
         }
         return true
+    }
+
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        return if (event.keyCode == KeyEvent.KEYCODE_BACK) {
+            true
+        } else super.dispatchKeyEvent(event)
     }
 
 }

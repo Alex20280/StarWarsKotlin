@@ -9,8 +9,8 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:backgroundTint="@color/black"
     tools:context=".ui.screens.main.StarMovieActivity">
 
@@ -18,9 +18,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activityMain_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="-5dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="12dp"
         android:orientation="vertical"

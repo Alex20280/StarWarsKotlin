@@ -18,6 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class DetailsActivity : BaseActivity<MainViewModel>() {
 
     private var id: Int = 0
+    private var runtime: Int = 0
 
     override val viewModel by viewModel<MainViewModel>()
 
@@ -40,6 +41,7 @@ class DetailsActivity : BaseActivity<MainViewModel>() {
 
         val intent = intent
         id = intent.getIntExtra("id", 0)
+        runtime = intent.getIntExtra("runtime", 0)
 
         viewModel.getMovieByIdFromDb(id)
         viewModel.getCastFromDb(id)
@@ -59,7 +61,7 @@ class DetailsActivity : BaseActivity<MainViewModel>() {
                     with(binding) {
                         mainPosterIv.load(UtilsUi.POSTER_BASE+it.get(0).poster_path)
                         moviewNameTv.text = it.get(0).title
-                        moviewDurationTv.text = convertTime(it.get(0).runtime)
+                        moviewDurationTv.text = convertTime(runtime)
                         moviewGenreTv.text = it.get(0).genres.get(0).name
                         sinopsinTextTv.text = it.get(0).overview
                     }
