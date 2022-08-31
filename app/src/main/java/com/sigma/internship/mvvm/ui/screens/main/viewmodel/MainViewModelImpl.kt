@@ -76,11 +76,11 @@ class MainViewModelImpl(
         }
     }
 
-    override fun getMovieByIdFromDb(id: Int) {
-        viewModelScope.launch {
-            val detailsList = dbRepository.getMoviesAndDetailsById(id)
-            getMovieAndDetailsById.postValue(detailsList)
+    override suspend fun getMovieByIdFromDb(id: Int): MutableList<MovieAndDetailsUi>{
+        val res = viewModelScope.async {
+            dbRepository.getMoviesAndDetailsById(id)
         }
+        return res.await().toMutableList()
     }
 
     override fun getCastFromDb(id: Int) {

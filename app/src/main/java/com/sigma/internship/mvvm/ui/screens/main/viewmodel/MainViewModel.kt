@@ -22,7 +22,7 @@ abstract class MainViewModel: BaseViewModel() {
 
     abstract fun getPopularMovies()
 
-    abstract fun getMovieByIdFromDb(id: Int)
+    abstract suspend fun getMovieByIdFromDb(id: Int): MutableList<MovieAndDetailsUi>
 
     abstract fun getCastFromDb(id: Int)
 
