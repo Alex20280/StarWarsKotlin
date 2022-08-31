@@ -6,16 +6,24 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.core.app.NavUtils
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.sigma.internship.mvvm.R
 import com.sigma.internship.mvvm.databinding.ActivityCastBinding
 import com.sigma.internship.mvvm.ui.base.BaseActivity
+import com.sigma.internship.mvvm.ui.screens.main.adapters.CastAndCrewRecyclerAdapter
 import com.sigma.internship.mvvm.ui.screens.main.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CastActivity : BaseActivity<MainViewModel>() {
 
-    override val viewModel by viewModel<MainViewModel>()
     private var id: Int = 0
+
+    private val castAdapter = CastAndCrewRecyclerAdapter()
+    private var layoutManager: RecyclerView.LayoutManager? = null
+
+    override val viewModel by viewModel<MainViewModel>()
     private val binding: ActivityCastBinding by lazy { ActivityCastBinding.inflate(layoutInflater) } //binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,16 +37,40 @@ class CastActivity : BaseActivity<MainViewModel>() {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        val intent = getIntent();
+        if(intent != null) {
+            id = getIntent().getIntExtra("id", 0)
+        }
 
-        val intent = intent
-        id = intent.getIntExtra("id", 0)
+        initRecyclerView()
 
-        //Log.d("cast", id.toString())
+        viewModel.getCastFromDb(id).toString()
+        Log.d("ids",  viewModel.getCastFromDb(id).toString())
 
     }
 
     override fun liveDataObserver() {
 
+        viewModel.getCastById.observe(this, { list ->
+            list.let {
+                castAdapter.setSomeList(it)
+                Log.d("ids",  castAdapter.setSomeList(it).toString())
+            }
+
+        })
+    }
+
+    private fun initRecyclerView() {
+        val recyclerView = binding.activityCastRecyclerView
+        if (!castAdapter.hasObservers()) {
+            castAdapter.setHasStableIds(true)
+        }
+        val snap = LinearSnapHelper()
+        recyclerView.adapter = castAdapter
+        layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.setOnFlingListener(null);
+        snap.attachToRecyclerView(recyclerView)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

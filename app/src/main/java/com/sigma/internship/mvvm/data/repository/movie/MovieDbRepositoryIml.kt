@@ -19,7 +19,7 @@ class MovieDbRepositoryIml(private val context: Context) : MovieDbRepository {
         MoviesDatabase.getInstance(context).getMovieDao().insertDetails(response)
     }
 
-    override suspend fun saveCast(response: CastDbModel) {
+    override suspend fun saveCast(response: List<CastDbModel>) {
         MoviesDatabase.getInstance(context).getMovieDao().insertCast(response)
     }
 
@@ -44,7 +44,7 @@ class MovieDbRepositoryIml(private val context: Context) : MovieDbRepository {
         Log.d("castlist", list.toString())
         val cast = MoviesDatabase.getInstance(context).getMovieDao().getAllCastAssociatedWithMovie(id)
         cast.get(0).castList.map {
-            list.add(CastUi(it.cast.name, it.cast?.profile_path, it.cast.character))
+            list.add(CastUi(it.cast.name, it.cast.profile_path, it.cast.character))
         }
         return list
     }

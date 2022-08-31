@@ -2,16 +2,18 @@ package com.sigma.internship.mvvm.ui.screens.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.core.app.NavUtils
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.sigma.internship.mvvm.R
 import com.sigma.internship.mvvm.databinding.ActivityMovieDetailsBinding
 import com.sigma.internship.mvvm.ui.UtilsUi
 import com.sigma.internship.mvvm.ui.base.BaseActivity
+import com.sigma.internship.mvvm.ui.screens.main.adapters.CastAndCrewRecyclerAdapter
 import com.sigma.internship.mvvm.ui.screens.main.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,6 +21,9 @@ class DetailsActivity : BaseActivity<MainViewModel>() {
 
     private var id: Int = 0
     private var runtime: Int = 0
+
+    private val castAdapter = CastAndCrewRecyclerAdapter()
+    private var layoutManager: RecyclerView.LayoutManager? = null
 
     override val viewModel by viewModel<MainViewModel>()
 
@@ -46,26 +51,45 @@ class DetailsActivity : BaseActivity<MainViewModel>() {
         viewModel.getMovieByIdFromDb(id)
         viewModel.getCastFromDb(id)
 
+        initRecyclerView()
+
         binding.viewAllTv.setOnClickListener {
-            val intent = Intent(this@DetailsActivity, CastActivity::class.java)
-            intent.putExtra("id", id.toString())
-            startActivity(intent)
+            val someIntent = Intent(this@DetailsActivity, CastActivity::class.java)
+            someIntent.putExtra("id", id)
+            startActivity(someIntent)
         }
+    }
+
+    private fun initRecyclerView() {
+        val recyclerView = binding.moviewDerailsReciclerView
+        if (!castAdapter.hasObservers()) {
+            castAdapter.setHasStableIds(true)
+        }
+        val snap = LinearSnapHelper()
+        recyclerView.adapter = castAdapter
+        layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.setOnFlingListener(null);
+        snap.attachToRecyclerView(recyclerView)
     }
 
     override fun liveDataObserver() {
 
-        Log.d("text", id.toString())
         viewModel.getMovieAndDetailsById.observe(this, { list ->
-                list.let {
-                    with(binding) {
-                        mainPosterIv.load(UtilsUi.POSTER_BASE+it.get(0).poster_path)
-                        moviewNameTv.text = it.get(0).title
-                        moviewDurationTv.text = convertTime(runtime)
-                        moviewGenreTv.text = it.get(0).genres.get(0).name
-                        sinopsinTextTv.text = it.get(0).overview
-                    }
+            list.let {
+                with(binding) {
+                    mainPosterIv.load(UtilsUi.BASE_URL + it.get(0).poster_path)
+                    moviewNameTv.text = it.get(0).title
+                    moviewDurationTv.text = convertTime(runtime)
+                    moviewGenreTv.text = it.get(0).genres.get(0).name
+                    sinopsinTextTv.text = it.get(0).overview
                 }
+            }
+        })
+        viewModel.getCastById.observe(this, { list ->
+            list.let {
+                castAdapter.setSomeList(it)
+            }
         })
     }
 
@@ -95,8 +119,8 @@ class DetailsActivity : BaseActivity<MainViewModel>() {
         }
     }
 
-    fun convertTime(duration: Int):String{
-        val hours = duration/60
+    fun convertTime(duration: Int): String {
+        val hours = duration / 60
         val min = duration % 60
         return String.format("%2dhr %02dm", hours, min)
     }

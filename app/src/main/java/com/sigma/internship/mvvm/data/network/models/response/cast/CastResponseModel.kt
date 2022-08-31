@@ -9,7 +9,7 @@ data class CastResponseModel(
     val cast: ArrayList<CastResponse>
 )
 
-{
+/*{
 
     fun convertToDataBaseModel(): CastDbModel {
         return CastDbModel(
@@ -17,7 +17,7 @@ data class CastResponseModel(
             Cast(cast.get(0).name, cast.get(0).profile_path, cast.get(0).character)
         )
     }
-}
+}*/
 
 /*
 {

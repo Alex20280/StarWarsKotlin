@@ -17,7 +17,7 @@ interface MovieDbRepository {
 
     suspend fun saveDetails (response: DetailsDbModel)
 
-    suspend fun saveCast (response: CastDbModel)
+    suspend fun saveCast (response: List <CastDbModel>)
 
     suspend fun getPopularMoviesList() : MutableList<MovieAndDetailsUi>
 

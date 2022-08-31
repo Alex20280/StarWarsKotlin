@@ -50,7 +50,7 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
         CoroutineScope(Dispatchers.IO).launch {
             saveMovies()
             saveMovieDetails()
-            //saveMovieCast()
+            saveMovieCast()
         }
         initRecyclerView()
 

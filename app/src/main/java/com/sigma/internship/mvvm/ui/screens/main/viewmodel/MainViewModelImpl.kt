@@ -3,8 +3,11 @@ package com.sigma.internship.mvvm.ui.screens.main.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.sigma.internship.mvvm.data.db.convertermodels.Cast
+import com.sigma.internship.mvvm.data.db.convertermodels.Genres
+import com.sigma.internship.mvvm.data.db.entities.CastDbModel
+import com.sigma.internship.mvvm.data.db.entities.DetailsDbModel
 import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
-import com.sigma.internship.mvvm.data.network.models.response.movie.MovieResponse
 import com.sigma.internship.mvvm.data.repository.movie.MovieApiRepository
 import com.sigma.internship.mvvm.data.repository.movie.MovieDbRepository
 import com.sigma.internship.mvvm.ui.models.cast.CastUi
@@ -14,7 +17,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class MainViewModelImpl(private val repository: MovieApiRepository, private val dbRepository: MovieDbRepository) : MainViewModel() {
+class MainViewModelImpl(
+    private val repository: MovieApiRepository,
+    private val dbRepository: MovieDbRepository
+) : MainViewModel() {
 
     override val getPopularMovies = MutableLiveData<MutableList<MovieAndDetailsUi>>()
     override val getMovieAndDetailsById = MutableLiveData<MutableList<MovieAndDetailsUi>>()
@@ -23,20 +29,33 @@ class MainViewModelImpl(private val repository: MovieApiRepository, private val 
     override suspend fun saveMovies() {
         CoroutineScope(Dispatchers.IO).launch {
             //dbRepository.saveMovies(repository.getMoviesFromApi().convertToDataBaseModel())
-            dbRepository.saveMovies(repository.getMoviesFromApi().results.map { movieResponse -> MovieDbModel(movieResponse.id, movieResponse.poster_path, movieResponse.overview, movieResponse.title )  }).also { Log.d("test",repository.getMoviesFromApi().results.toString()) }
+            dbRepository.saveMovies(repository.getMoviesFromApi().results.map { movieResponse ->
+                MovieDbModel(
+                    movieResponse.id,
+                    movieResponse.poster_path,
+                    movieResponse.overview,
+                    movieResponse.title
+                )
+            })
         }
     }
 
     override suspend fun saveDetailsById(id: Int) {
         CoroutineScope(Dispatchers.IO).launch {
-            val castResponse = repository.getMoviesFromApiById(id).convertToDataBaseModel()
-            dbRepository.saveDetails(castResponse)
+            val detailsResponse = repository.getMoviesFromApiById(id).convertToDataBaseModel()
+            dbRepository.saveDetails(detailsResponse)
         }
     }
 
     override suspend fun saveCastById(id: Int) {
         CoroutineScope(Dispatchers.IO).launch {
-            val castResponse = repository.getCastFromApi(id).convertToDataBaseModel()
+            //val castResponse = repository.getCastFromApi(id).convertToDataBaseModel()
+            val castResponse = repository.getCastFromApi(id).cast.map { castResponse ->
+                CastDbModel(
+                    id,
+                    Cast(castResponse.name, castResponse.profile_path, castResponse.character)
+                )
+            }
             dbRepository.saveCast(castResponse)
 
         }
@@ -57,7 +76,7 @@ class MainViewModelImpl(private val repository: MovieApiRepository, private val 
         }
     }
 
-    override fun getMovieByIdFromDb(id: Int){
+    override fun getMovieByIdFromDb(id: Int) {
         viewModelScope.launch {
             val detailsList = dbRepository.getMoviesAndDetailsById(id)
             getMovieAndDetailsById.postValue(detailsList)

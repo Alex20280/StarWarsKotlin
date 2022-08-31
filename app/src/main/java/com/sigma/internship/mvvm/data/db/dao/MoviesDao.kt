@@ -17,7 +17,7 @@ interface MoviesDao {
     suspend fun insertDetails (movies: DetailsDbModel)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCast (cast: CastDbModel)
+    suspend fun insertCast (cast: List <CastDbModel>)
 
 
     @Transaction
