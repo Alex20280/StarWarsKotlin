@@ -44,8 +44,8 @@ class CastActivity : BaseActivity<MainViewModel>() {
 
         initRecyclerView()
 
-        viewModel.getCastFromDb(id).toString()
-        Log.d("ids",  viewModel.getCastFromDb(id).toString())
+        //viewModel.getCastFromDb(id).toString()
+        //Log.d("ids",  viewModel.getCastFromDb(id).toString())
 
     }
 
@@ -54,7 +54,7 @@ class CastActivity : BaseActivity<MainViewModel>() {
         viewModel.getCastById.observe(this, { list ->
             list.let {
                 castAdapter.setSomeList(it)
-                Log.d("ids",  castAdapter.setSomeList(it).toString())
+                //Log.d("ids",  castAdapter.setSomeList(it).toString())
             }
 
         })

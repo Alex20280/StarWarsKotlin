@@ -34,7 +34,7 @@ class MovieApiRepositoryImpl(val api: MovieApi) : MovieApiRepository {
 
     override suspend fun getCastFromApi(id: Int): CastResponseModel {
         val res = api.getCastFromApi(id, Utils.KEY)
-        //Log.d("cast", res.toString())
+        Log.d("cast", res.toString())
         return res
     }
 

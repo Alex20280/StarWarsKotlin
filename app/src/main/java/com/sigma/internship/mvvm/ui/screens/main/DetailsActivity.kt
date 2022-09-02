@@ -2,6 +2,7 @@ package com.sigma.internship.mvvm.ui.screens.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -53,9 +54,7 @@ class DetailsActivity : AppCompatActivity() {
 
         val intent = intent
         id = intent.getIntExtra("id", 0)
-        runtime = intent.getIntExtra("runtime", 0)
 
-        //viewModel.getCastFromDb(id)
         lifecycleScope.launch {
             showData()
             showList()
@@ -69,13 +68,20 @@ class DetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun showList() {
-        TODO("Not yet implemented")
+    private suspend fun showList() {
+        val res = lifecycleScope.async {
+            //Log.d("movie", viewModel.getCastFromDb(id).toString())
+            viewModel.getCastFromDb(id)
+        }
+        res.await().let{
+            castAdapter.setSomeList(it)
+        }
     }
 
     private suspend fun showData() {
         val res = lifecycleScope.async {
             viewModel.getMovieByIdFromDb(id)
+
         }
         res.await().let {
             with(binding) {

@@ -83,12 +83,12 @@ class MainViewModelImpl(
         return res.await().toMutableList()
     }
 
-    override fun getCastFromDb(id: Int) {
-        viewModelScope.launch {
-            val castList = dbRepository.getCastById(id)
-            //Log.d("some", castList.toString())
-            getCastById.postValue(castList)
+    override suspend fun getCastFromDb(id: Int): MutableList<CastUi> {
+        val res = viewModelScope.async {
+            dbRepository.getCastById(id)
         }
+        return res.await().toMutableList()
+
     }
 
 

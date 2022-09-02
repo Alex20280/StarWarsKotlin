@@ -2,6 +2,7 @@ package com.sigma.internship.mvvm.ui.screens.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
@@ -58,9 +59,6 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
 
     private fun initRecyclerView() {
         val recyclerView = binding.activityMainRecyclerView
-        if (!movieAdapter.hasObservers()) {
-            movieAdapter.setHasStableIds(true)
-        }
         val snap = LinearSnapHelper()
         recyclerView.adapter = movieAdapter
         movieAdapter.setOnclickListener(object : MoviesRecyclerAdapter.onItemClickListener {
@@ -69,7 +67,6 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
                 val recyclerViewItem = mylist.get(position)
                 val intent = Intent(this@StarMovieActivity, DetailsActivity::class.java)
                 intent.putExtra("id", recyclerViewItem.id)
-                intent.putExtra("runtime", recyclerViewItem.runtime)
                 startActivity(intent)
             }
 
@@ -98,6 +95,7 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
         viewModel.getPopularMovies.observe(this, { list ->
             list.let {
                 movieAdapter.setSomeList(it)
+                Log.d("list", it.toString())
             }
 
         })
