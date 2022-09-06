@@ -23,17 +23,14 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DetailsActivity : AppCompatActivity() {
+class DetailsActivity : BaseActivity<MainViewModel>() {
 
     private var id: Int = 0
-    private var runtime: Int = 0
 
     private val castAdapter = CastAndCrewRecyclerAdapter()
     private var layoutManager: RecyclerView.LayoutManager? = null
 
-    private var movieList = mutableListOf<MovieAndDetailsUi>()
-
-    val viewModel by viewModel<MainViewModel>()
+    override val viewModel by viewModel<MainViewModel>()
 
     private val binding: ActivityMovieDetailsBinding by lazy {
         ActivityMovieDetailsBinding.inflate(
@@ -57,7 +54,7 @@ class DetailsActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             showData()
-            showList()
+            viewModel.getCastFromDb(id)
         }
         initRecyclerView()
 
@@ -67,21 +64,17 @@ class DetailsActivity : AppCompatActivity() {
             startActivity(someIntent)
         }
     }
-
-    private suspend fun showList() {
-        val res = lifecycleScope.async {
-            //Log.d("movie", viewModel.getCastFromDb(id).toString())
-            viewModel.getCastFromDb(id)
-        }
-        res.await().let{
-            castAdapter.setSomeList(it)
-        }
+    override fun liveDataObserver() {
+        viewModel.getCastById.observe(this, { list ->
+            list.let {
+                castAdapter.setSomeList(it)
+            }
+        })
     }
 
     private suspend fun showData() {
         val res = lifecycleScope.async {
             viewModel.getMovieByIdFromDb(id)
-
         }
         res.await().let {
             with(binding) {
@@ -97,9 +90,6 @@ class DetailsActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         val recyclerView = binding.moviewDerailsReciclerView
-        if (!castAdapter.hasObservers()) {
-            castAdapter.setHasStableIds(true)
-        }
         val snap = LinearSnapHelper()
         recyclerView.adapter = castAdapter
         layoutManager = LinearLayoutManager(this)
@@ -159,6 +149,7 @@ class DetailsActivity : AppCompatActivity() {
         val min = duration % 60
         return String.format("%2dhr %02dm", hours, min)
     }
+
 }
 
 

@@ -95,7 +95,6 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
         viewModel.getPopularMovies.observe(this, { list ->
             list.let {
                 movieAdapter.setSomeList(it)
-                Log.d("list", it.toString())
             }
 
         })

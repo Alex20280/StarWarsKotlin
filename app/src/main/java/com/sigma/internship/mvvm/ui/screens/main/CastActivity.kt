@@ -54,7 +54,6 @@ class CastActivity : BaseActivity<MainViewModel>() {
         viewModel.getCastById.observe(this, { list ->
             list.let {
                 castAdapter.setSomeList(it)
-                //Log.d("ids",  castAdapter.setSomeList(it).toString())
             }
 
         })
@@ -62,9 +61,6 @@ class CastActivity : BaseActivity<MainViewModel>() {
 
     private fun initRecyclerView() {
         val recyclerView = binding.activityCastRecyclerView
-        if (!castAdapter.hasObservers()) {
-            castAdapter.setHasStableIds(true)
-        }
         val snap = LinearSnapHelper()
         recyclerView.adapter = castAdapter
         layoutManager = LinearLayoutManager(this)

@@ -22,7 +22,6 @@ class MovieApiRepositoryImpl(val api: MovieApi) : MovieApiRepository {
 
     override suspend fun getMoviesFromApiById(id: Int): DetailsResponse {
         val res = api.getMovieDetailsFromApi(id, Utils.KEY)
-        //Log.d("test", res.toString())
         return res
     }
     /*
@@ -34,7 +33,6 @@ class MovieApiRepositoryImpl(val api: MovieApi) : MovieApiRepository {
 
     override suspend fun getCastFromApi(id: Int): CastResponseModel {
         val res = api.getCastFromApi(id, Utils.KEY)
-        Log.d("cast", res.toString())
         return res
     }
 

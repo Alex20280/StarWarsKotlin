@@ -42,10 +42,10 @@ class MovieDbRepositoryIml(private val context: Context) : MovieDbRepository {
     override suspend fun getCastById(id: Int): MutableList<CastUi> {
         val list = mutableListOf<CastUi>()
         val cast = MoviesDatabase.getInstance(context).getMovieDao().getAllCastAssociatedWithMovie(id)
+        Log.d("res", cast.toString())
         cast.get(0).castList.map {
             list.add(CastUi(it.cast.name, it.cast.profile_path, it.cast.character))
         }
-        //Log.d("castlist", list.toString())
         return list
     }
 

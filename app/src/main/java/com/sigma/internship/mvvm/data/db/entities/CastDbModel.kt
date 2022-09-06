@@ -1,5 +1,6 @@
 package com.sigma.internship.mvvm.data.db.entities
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters

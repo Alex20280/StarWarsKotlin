@@ -56,6 +56,7 @@ class MainViewModelImpl(
                     Cast(castResponse.name, castResponse.profile_path, castResponse.character)
                 )
             }
+            //Log.d("castresponse", castResponse.toString())
             dbRepository.saveCast(castResponse)
 
         }
@@ -83,12 +84,11 @@ class MainViewModelImpl(
         return res.await().toMutableList()
     }
 
-    override suspend fun getCastFromDb(id: Int): MutableList<CastUi> {
-        val res = viewModelScope.async {
-            dbRepository.getCastById(id)
+    override suspend fun getCastFromDb(id: Int) {
+        viewModelScope.launch {
+            val cast = dbRepository.getCastById(id)
+            getCastById.postValue(cast)
         }
-        return res.await().toMutableList()
-
     }
 
 

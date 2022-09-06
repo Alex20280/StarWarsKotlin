@@ -24,7 +24,7 @@ abstract class MainViewModel: BaseViewModel() {
 
     abstract suspend fun getMovieByIdFromDb(id: Int): MutableList<MovieAndDetailsUi>
 
-    abstract suspend fun getCastFromDb(id: Int): MutableList<CastUi>
+    abstract suspend fun getCastFromDb(id: Int)
 
 
 }
