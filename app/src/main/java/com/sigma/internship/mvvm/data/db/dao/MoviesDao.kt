@@ -37,7 +37,7 @@ interface MoviesDao {
     suspend fun getDetailsListById(id: Int): List<DetailsDbModel>
 
     @Transaction
-    @Query("select * FROM movie WHERE id = :id")
+    @Query("select * FROM `cast` WHERE id = :id")
     fun getAllCastAssociatedWithMovie(id: Int): List<MovieWithListOfCast>
 
 }
