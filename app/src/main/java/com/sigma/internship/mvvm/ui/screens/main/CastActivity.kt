@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.core.app.NavUtils
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ import com.sigma.internship.mvvm.databinding.ActivityCastBinding
 import com.sigma.internship.mvvm.ui.base.BaseActivity
 import com.sigma.internship.mvvm.ui.screens.main.adapters.CastAndCrewRecyclerAdapter
 import com.sigma.internship.mvvm.ui.screens.main.viewmodel.MainViewModel
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CastActivity : BaseActivity<MainViewModel>() {
@@ -42,10 +44,10 @@ class CastActivity : BaseActivity<MainViewModel>() {
             id = getIntent().getIntExtra("id", 0)
         }
 
+        lifecycleScope.launch {
+            viewModel.getCastFromDb(id)
+        }
         initRecyclerView()
-
-        //viewModel.getCastFromDb(id).toString()
-        //Log.d("ids",  viewModel.getCastFromDb(id).toString())
 
     }
 

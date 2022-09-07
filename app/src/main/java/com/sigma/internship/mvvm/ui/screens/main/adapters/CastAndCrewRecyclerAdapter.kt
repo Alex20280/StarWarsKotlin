@@ -1,5 +1,6 @@
 package com.sigma.internship.mvvm.ui.screens.main.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -31,6 +32,7 @@ class CastAndCrewRecyclerAdapter(): RecyclerView.Adapter<CastAndCrewRecyclerAdap
         with(holder) {
             with(mylist[position]) {
 
+                //Log.d("adapter", mylist.toString())
                 binding.actorImageView.load(UtilsUi.BASE_URL + recyclerViewItem.profile_path){
                     transformations(CircleCropTransformation())
                 }
