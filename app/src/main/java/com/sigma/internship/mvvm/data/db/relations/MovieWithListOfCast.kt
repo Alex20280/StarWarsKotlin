@@ -9,7 +9,7 @@ import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
 
 data class MovieWithListOfCast(
     @Embedded /* The parent */
-    val movie: MovieDbModel,
+    val movie: CastDbModel,
     @Relation(
         entity = CastDbModel::class, /* The class of the related table(entity) (the children)*/
         parentColumn = "id", /* The column in the @Embedded class (parent) that is referenced/mapped to */

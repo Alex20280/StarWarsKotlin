@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.CircleCropTransformation
 import com.sigma.internship.mvvm.databinding.StarMovieRecycleItemBinding
 import com.sigma.internship.mvvm.ui.UtilsUi
 import com.sigma.internship.mvvm.ui.models.movie.MovieAndDetailsUi
@@ -35,7 +36,8 @@ class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.Recyc
         with(holder) {
             with(mylist[position]) {
 
-                binding.posterIv.load(UtilsUi.BASE_URL + recyclerViewItem.poster_path) //TODO placeholder https://www.youtube.com/watch?v=-1OU04S9EWg&ab_channel=EDMTDev
+                binding.posterIv.load(UtilsUi.BASE_URL + recyclerViewItem.poster_path)
+                //TODO placeholder https://www.youtube.com/watch?v=-1OU04S9EWg&ab_channel=EDMTDev
 
                 binding.movieTitleTv.text = recyclerViewItem.title
 

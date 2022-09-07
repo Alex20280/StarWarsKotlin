@@ -4,7 +4,6 @@ import androidx.room.*
 import com.sigma.internship.mvvm.data.db.entities.CastDbModel
 import com.sigma.internship.mvvm.data.db.entities.DetailsDbModel
 import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
-import com.sigma.internship.mvvm.data.db.relations.MovieWithListOfCast
 
 
 @Dao
@@ -37,7 +36,7 @@ interface MoviesDao {
     suspend fun getDetailsListById(id: Int): List<DetailsDbModel>
 
     @Transaction
-    @Query("select * FROM movie WHERE id = :id")
-    fun getAllCastAssociatedWithMovie(id: Int): List<MovieWithListOfCast>
+    @Query("select * FROM `cast` WHERE id = :id")
+    fun getAllCastAssociatedWithMovie(id: Int): List<CastDbModel>
 
 }

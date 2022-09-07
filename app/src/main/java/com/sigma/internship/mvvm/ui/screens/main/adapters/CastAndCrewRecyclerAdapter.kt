@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.CircleCropTransformation
 import com.sigma.internship.mvvm.databinding.CastRecycleItemBinding
 import com.sigma.internship.mvvm.ui.UtilsUi
 import com.sigma.internship.mvvm.ui.models.cast.CastUi
@@ -30,7 +31,9 @@ class CastAndCrewRecyclerAdapter(): RecyclerView.Adapter<CastAndCrewRecyclerAdap
         with(holder) {
             with(mylist[position]) {
 
-                binding.actorImageView.load(UtilsUi.BASE_URL + recyclerViewItem.profile_path)
+                binding.actorImageView.load(UtilsUi.BASE_URL + recyclerViewItem.profile_path){
+                    transformations(CircleCropTransformation())
+                }
                 binding.actornameTv.text = recyclerViewItem.name
                 binding.characterTv.text = recyclerViewItem.character //TODO placeholder https://www.youtube.com/watch?v=-1OU04S9EWg&ab_channel=EDMTDev
 
