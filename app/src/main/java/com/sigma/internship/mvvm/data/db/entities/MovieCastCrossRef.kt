@@ -29,9 +29,9 @@ import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
     ]
 )
 data class MovieCastCrossRef(
-    var movieIdMap: Int,
+    val movieIdMap: Int,
     @ColumnInfo(index = true)
-    var castIdMap: Int
+    val castIdMap: Int
 )
 
 

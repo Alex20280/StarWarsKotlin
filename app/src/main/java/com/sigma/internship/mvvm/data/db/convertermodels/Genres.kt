@@ -4,8 +4,8 @@ import androidx.room.Embedded
 
 data class Genres(
     @Embedded
-    var id: Int,
-    var name: String
+    val id: Int,
+    val name: String
 
 )
 

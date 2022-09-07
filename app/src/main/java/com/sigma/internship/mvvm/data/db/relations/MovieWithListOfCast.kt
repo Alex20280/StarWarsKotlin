@@ -9,7 +9,7 @@ import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
 
 data class MovieWithListOfCast(
     @Embedded /* The parent */
-    var movie: MovieDbModel,
+    val movie: MovieDbModel,
     @Relation(
         entity = CastDbModel::class, /* The class of the related table(entity) (the children)*/
         parentColumn = "id", /* The column in the @Embedded class (parent) that is referenced/mapped to */
@@ -21,7 +21,7 @@ data class MovieWithListOfCast(
             entityColumn = "castIdMap" /* the column in the mapping table that maps/references the child (@Relation) */
         )
     )
-    var castList: List<CastDbModel>
+    val castList: List<CastDbModel>
 )
 
 

@@ -3,9 +3,9 @@ package com.sigma.internship.mvvm.ui.models.cast
 import com.sigma.internship.mvvm.data.db.entities.CastDbModel
 
 data class CastUi (
-    var name: String,
+    var name: String?,
     var profile_path: String?,
-    var character: String
+    var character: String?
 )
 
 
