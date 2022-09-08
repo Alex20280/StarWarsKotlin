@@ -5,9 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.sigma.internship.mvvm.R
 import com.sigma.internship.mvvm.databinding.StarMovieRecycleItemBinding
 import com.sigma.internship.mvvm.ui.UtilsUi
 import com.sigma.internship.mvvm.ui.models.movie.MovieAndDetailsUi
+import java.util.Objects.isNull
 
 
 class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.RecyclerViewHolder>(){
@@ -36,18 +38,30 @@ class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.Recyc
         with(holder) {
             with(mylist[position]) {
 
-                binding.posterIv.load(UtilsUi.BASE_URL + recyclerViewItem.poster_path)
-                //TODO placeholder https://www.youtube.com/watch?v=-1OU04S9EWg&ab_channel=EDMTDev
 
-                binding.movieTitleTv.text = recyclerViewItem.title
+/*                binding.posterIv.load(UtilsUi.BASE_URL + recyclerViewItem.poster_path){
+                    fallback(R.drawable.placeholder_male)
+                }
+                */
 
-                binding.genreTv.text = recyclerViewItem.genres.get(0).name
+                if (recyclerViewItem.poster_path == null){ // TODO check
+                    binding.posterIv.load(R.drawable.placeholder_male)
+                } else {
+                    binding.posterIv.load(UtilsUi.BASE_URL + recyclerViewItem.poster_path)
+                }
 
-                binding.movieDurationTv.text = convertTime(mylist.get(position).runtime)
 
+                    //TODO placeholder https://www.youtube.com/watch?v=-1OU04S9EWg&ab_channel=EDMTDev
+
+                    binding.movieTitleTv.text = recyclerViewItem.title
+
+                    binding.genreTv.text = recyclerViewItem.genres.get(0).name
+
+                    binding.movieDurationTv.text = convertTime(mylist.get(position).runtime)
+
+                }
             }
         }
-    }
 
 
 

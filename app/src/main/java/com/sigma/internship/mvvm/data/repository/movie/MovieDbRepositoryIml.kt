@@ -20,7 +20,7 @@ class MovieDbRepositoryIml(private val context: Context) : MovieDbRepository {
     }
 
     override suspend fun saveCast(response: List<CastDbModel>) {
-        MoviesDatabase.getInstance(context).getMovieDao().insertCast(response)
+        MoviesDatabase.getInstance(context).getMovieDao().insertCast(response).also { Log.d("insert", response.toString()) }
     }
 
     override suspend fun getPopularMoviesList(): MutableList<MovieAndDetailsUi> {
@@ -42,7 +42,7 @@ class MovieDbRepositoryIml(private val context: Context) : MovieDbRepository {
     override suspend fun getCastById(id: Int): MutableList<CastUi> {
         val list = mutableListOf<CastUi>()
         val cast = MoviesDatabase.getInstance(context).getMovieDao().getAllCastAssociatedWithMovie(id)
-        Log.d("res", cast.toString())
+        Log.d("get", cast.toString())
         cast.map {
             list.add(CastUi(it.cast.name, it.cast.profile_path, it.cast.character))
         }

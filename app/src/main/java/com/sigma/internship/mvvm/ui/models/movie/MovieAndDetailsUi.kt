@@ -6,7 +6,7 @@ import com.sigma.internship.mvvm.data.db.entities.MovieDbModel
 data class MovieAndDetailsUi (
 
     val id: Int,
-    val poster_path: String,
+    val poster_path: String?,
     val overview: String,
     val title: String,
     val genres: List<GenreUi>,
