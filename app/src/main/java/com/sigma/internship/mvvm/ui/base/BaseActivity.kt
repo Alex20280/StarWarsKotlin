@@ -18,5 +18,4 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
     }
 
 
-
 }

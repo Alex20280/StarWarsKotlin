@@ -4,18 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import coil.transform.CircleCropTransformation
 import com.sigma.internship.mvvm.R
 import com.sigma.internship.mvvm.databinding.StarMovieRecycleItemBinding
 import com.sigma.internship.mvvm.ui.UtilsUi
 import com.sigma.internship.mvvm.ui.models.movie.MovieAndDetailsUi
-import java.util.Objects.isNull
 
 
 class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.RecyclerViewHolder>(){
 
     private lateinit var mListener: onItemClickListener
     private var mylist = mutableListOf<MovieAndDetailsUi>()
+
 
     interface onItemClickListener{
         fun onItemClick (position: Int)
@@ -31,6 +30,8 @@ class MoviesRecyclerAdapter() : RecyclerView.Adapter<MoviesRecyclerAdapter.Recyc
             StarMovieRecycleItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RecyclerViewHolder(binding, mListener);
     }
+
+
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         val recyclerViewItem = mylist.get(position)

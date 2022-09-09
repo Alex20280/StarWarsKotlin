@@ -2,12 +2,12 @@ package com.sigma.internship.mvvm.ui.screens.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.sigma.internship.mvvm.R
@@ -25,16 +25,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class StarMovieActivity : BaseActivity<MainViewModel>() {
 
     private val movieAdapter = MoviesRecyclerAdapter()
-    private var layoutManager: RecyclerView.LayoutManager? = null
+    private var layoutManager: LinearLayoutManager? = null
     private var mylist = mutableListOf<MovieAndDetailsUi>()
-
     override val viewModel by viewModel<MainViewModel>()
 
-    private val binding: ActivityStarMovieBinding by lazy {
-        ActivityStarMovieBinding.inflate(
-            layoutInflater
-        )
-    }
+
+    private val binding: ActivityStarMovieBinding by lazy {ActivityStarMovieBinding.inflate(layoutInflater)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +38,8 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
 
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.title = "Star Movie"
+
+        initRecyclerView()
 
     }
 
@@ -53,13 +51,15 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
             saveMovieDetails()
             saveMovieCast()
         }
-        initRecyclerView()
 
     }
 
     private fun initRecyclerView() {
+
         val recyclerView = binding.activityMainRecyclerView
         val snap = LinearSnapHelper()
+        layoutManager = GridLayoutManager(this, 2)
+        recyclerView.layoutManager = layoutManager
         recyclerView.adapter = movieAdapter
         movieAdapter.setOnclickListener(object : MoviesRecyclerAdapter.onItemClickListener {
             override fun onItemClick(position: Int) {
@@ -69,12 +69,10 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
                 intent.putExtra("id", recyclerViewItem.id)
                 startActivity(intent)
             }
-
         })
-        layoutManager = GridLayoutManager(this, 2)
-        recyclerView.layoutManager = layoutManager
         recyclerView.setOnFlingListener(null);
         snap.attachToRecyclerView(recyclerView)
+
     }
 
     private suspend fun saveMovies() {
@@ -100,9 +98,10 @@ class StarMovieActivity : BaseActivity<MainViewModel>() {
         })
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.search_item, menu)
         return true
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

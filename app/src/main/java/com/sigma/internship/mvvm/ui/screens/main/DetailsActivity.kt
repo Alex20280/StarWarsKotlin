@@ -118,10 +118,11 @@ class DetailsActivity : BaseActivity<MainViewModel>() {
         })
     }*/
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val menuInflater = menuInflater
-        menuInflater.inflate(R.menu.forward_item, menu)
-        return true
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+            val menuInflater = menuInflater
+            menuInflater.inflate(R.menu.forward_item, menu)
+            return true
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
